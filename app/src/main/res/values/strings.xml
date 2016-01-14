@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SaFe</string>
+
+    <string name="load_30_days">Load more data</string>
+
+    <string name= "loading_map_message">"Loading data..."</string>>
+
+    <string name= "message_success">Successfully loaded 30 days of incidents</string>>
+
+</resources>
