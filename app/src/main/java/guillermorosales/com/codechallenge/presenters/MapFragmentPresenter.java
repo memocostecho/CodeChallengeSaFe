@@ -56,7 +56,8 @@ public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, Fe
     public void onReportsFetchedByCategory(List<SFReportsModel> reports) {
         mapView.setReportsByCategory(reports);
         mapView.hideProgress();
-        mapView.showSuccess(((MapActivity) mapView).getResources().getString(R.string.message_success_get_reports_by_category, reports.size(), reports.get(0).getCategory()));
+        mapView.showSuccess(((MapActivity) mapView).getResources().getString(R.string.message_success_get_reports_by_category, reports.size(), reports.get(0).getCategory()
+                .toLowerCase()));
     }
 
     @Override

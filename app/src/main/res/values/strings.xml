@@ -7,7 +7,7 @@
 
     <string name= "message_success_get_reports">Successfully loaded %1$d incidents occurred of the last month</string>
 
-    <string name= "message_success_get_reports_by_category">Successfully loaded %1$d incidents of %2$s occurred in the last year</string>
+    <string name= "message_success_get_reports_by_category">Successfully loaded %1$d incidents of "%2$s" occurred in the last year</string>
 
     <string name= "map_camera_targetLat">37.772630108116</string>
 
@@ -17,6 +17,6 @@
 
     <string name= "map_camera_zoom">12</string>
 
-    <string name= "all_filter_text">ALL</string>
+    <string name= "all_filter_text">All</string>
 
 </resources>

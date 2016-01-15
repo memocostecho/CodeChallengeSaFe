@@ -34,6 +34,7 @@ import guillermorosales.com.codechallenge.presenters.MapFragmentPresenter;
 import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
 import guillermorosales.com.codechallenge.util.UIUtil;
 import guillermorosales.com.codechallenge.util.UtilColorMarker;
+import guillermorosales.com.codechallenge.util.UtilString;
 
 public class MapActivity extends AppCompatActivity implements MapView, OnMapReadyCallback {
 
@@ -182,7 +183,7 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
     public void setCategories(List<CategoriesModel> categories) {
         menu.add(getResources().getString(R.string.all_filter_text));
         for (CategoriesModel category : categories) {
-            menu.add(category.getCategory());
+            menu.add(UtilString.capitalizeFirstLetter(category.getCategory().toLowerCase()));
         }
     }
 
