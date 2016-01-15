@@ -38,54 +38,35 @@ public class UtilColorMarker {
 
 
     public static float getColorCode(Context context, int position) {
-        int color = 0;
-        float returnColor = 0;
 
         switch (position) {
             case 0:
-                color = ContextCompat.getColor(context, R.color.danger0);
-                returnColor = UtilColorMarker.rgbToHue(Color.red(color), Color.green(color), Color.blue(color));
-                break;
+                return getHueColor(ContextCompat.getColor(context, R.color.danger0));
             case 1:
-                color = ContextCompat.getColor(context, R.color.danger0);
-                returnColor = UtilColorMarker.rgbToHue(Color.red(color), Color.green(color), Color.blue(color));
-                break;
+                return getHueColor(ContextCompat.getColor(context, R.color.danger0));
             case 2:
-                color = ContextCompat.getColor(context, R.color.danger0);
-                returnColor = UtilColorMarker.rgbToHue(Color.red(color), Color.green(color), Color.blue(color));
-                break;
+                return getHueColor(ContextCompat.getColor(context, R.color.danger0));
             case 3:
-                color = ContextCompat.getColor(context, R.color.danger1);
-                returnColor = UtilColorMarker.rgbToHue(Color.red(color), Color.green(color), Color.blue(color));
-                break;
+                return getHueColor(ContextCompat.getColor(context, R.color.danger1));
             case 4:
-                color = ContextCompat.getColor(context, R.color.danger2);
-                returnColor = UtilColorMarker.rgbToHue(Color.red(color), Color.green(color), Color.blue(color));
-                break;
+                return getHueColor(ContextCompat.getColor(context, R.color.danger2));
             case 5:
-                color = ContextCompat.getColor(context, R.color.danger3);
-                returnColor = UtilColorMarker.rgbToHue(Color.red(color), Color.green(color), Color.blue(color));
-                break;
+                return getHueColor(ContextCompat.getColor(context, R.color.danger3));
             case 6:
-                color = ContextCompat.getColor(context, R.color.danger4);
-                returnColor = UtilColorMarker.rgbToHue(Color.red(color), Color.green(color), Color.blue(color));
-                break;
+                return getHueColor(ContextCompat.getColor(context, R.color.danger4));
             case 7:
-                color = ContextCompat.getColor(context, R.color.danger5);
-                returnColor = UtilColorMarker.rgbToHue(Color.red(color), Color.green(color), Color.blue(color));
-                break;
+                return getHueColor(ContextCompat.getColor(context, R.color.danger5));
             case 8:
-                color = ContextCompat.getColor(context, R.color.danger6);
-                returnColor = UtilColorMarker.rgbToHue(Color.red(color), Color.green(color), Color.blue(color));
-                break;
+                return getHueColor(ContextCompat.getColor(context, R.color.danger6));
             case 9:
-                color = ContextCompat.getColor(context, R.color.danger7);
-                returnColor = UtilColorMarker.rgbToHue(Color.red(color), Color.green(color), Color.blue(color));
-                break;
+                return getHueColor(ContextCompat.getColor(context, R.color.danger7));
             default:
-                break;
+                return 0;
         }
-        return returnColor;
+    }
+
+    public static float getHueColor(int color){
+        return UtilColorMarker.rgbToHue(Color.red(color), Color.green(color), Color.blue(color));
     }
 
 }

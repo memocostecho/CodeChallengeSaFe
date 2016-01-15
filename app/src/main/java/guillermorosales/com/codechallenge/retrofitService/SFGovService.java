@@ -16,7 +16,7 @@ public class SFGovService {
 
     public static final String BASE_URL = "https://data.sfgov.org";
 
-    public interface PetlyServiceAPI {
+    public interface SFGovServiceAPI {
 
         @GET("/resource/ritf-b9ki.json")
         Observable<List<SFReportsModel>> fetchReports(@Query("$query") String query);

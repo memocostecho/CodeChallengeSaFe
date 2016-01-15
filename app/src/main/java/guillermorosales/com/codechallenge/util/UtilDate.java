@@ -1,5 +1,6 @@
 package guillermorosales.com.codechallenge.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -8,48 +9,22 @@ import java.util.Date;
  */
 public class UtilDate {
 
-
     public static String getCurrentDayString() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
-        int month;
-        int year;
-        int day;
-        month = calendar.get(Calendar.MONTH) + 1;
-        year = calendar.get(Calendar.YEAR);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        return "'" + year + "-" + month + "-" + day + "'";
+        return "'"+new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())+"'";
     }
-
 
     public static String getLastMonthDateString() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        int month;
-        int year;
-        int day;
-        if (calendar.get(Calendar.MONTH) == 0) {
-            month = 12;
-            year = calendar.get(Calendar.YEAR) - 1;
-        } else {
-            month = calendar.get(Calendar.MONTH) + 1;
-            year = calendar.get(Calendar.YEAR);
-        }
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        return "'" + year + "-" + month + "-" + day + "'";
+        calendar.add(Calendar.MONTH, -1);
+        return "'"+new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())+"'";
     }
-
 
     public static String getLastYearDateString() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        int month;
-        int year;
-        int day;
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        month = calendar.get(Calendar.MONTH) + 1;
-        year = calendar.get(Calendar.YEAR) - 1;
-        return "'" + year + "-" + month + "-" + day + "'";
+        calendar.add(Calendar.YEAR,-1);
+        return "'"+new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())+"'";
     }
 
 }

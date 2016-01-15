@@ -65,12 +65,12 @@ public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, Fe
     }
 
     @Override
-    public void onReporsNumberFetched(List districts) {
+    public void onReportsNumberFetched(List districts) {
         mapView.setDistrictsData(districts);
     }
 
     @Override
-    public void onReporsNumberFetchedFailed(String message) {
+    public void onReportsNumberFetchedFailed(String message) {
         mapView.throwErrorMessage(message);
     }
 

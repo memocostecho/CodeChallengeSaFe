@@ -27,11 +27,15 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(SFGovService.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
-    private SFGovService.PetlyServiceAPI service = retrofit.create(SFGovService.PetlyServiceAPI.class);
+    private SFGovService.SFGovServiceAPI service = retrofit.create(SFGovService.SFGovServiceAPI.class);
 
     @Override
     public void fetchReports(int page, final MapView mapView, final FetchReportsCallBack callBack) {
-        service.fetchReports("select * where date <" + UtilDate.getCurrentDayString() + " AND date > " + UtilDate.getLastMonthDateString() + " LIMIT " + LIMIT + " OFFSET " + page * LIMIT).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<SFReportsModel>>() {
+        service.fetchReports("select * where date <" + UtilDate.getCurrentDayString() + " AND " +
+                "date > " + UtilDate.getLastMonthDateString() + " LIMIT " + LIMIT + " OFFSET " +
+                page * LIMIT).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                new Action1<List<SFReportsModel>>() {
             @Override
             public void call(List<SFReportsModel> sfDistrictsModels) {
                 callBack.onReportsFetched(sfDistrictsModels);
@@ -55,7 +59,7 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
         service.fetchIncidentsNumber("select pddistrict,count(*) where date>" + UtilDate.getLastYearDateString() + " GROUP BY pddistrict order by count").subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<ReportCountModel>>() {
             @Override
             public void call(List<ReportCountModel> sfDistrictsModels) {
-                callBack.onReporsNumberFetched(sfDistrictsModels);
+                callBack.onReportsNumberFetched(sfDistrictsModels);
             }
 
 

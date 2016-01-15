@@ -7,8 +7,8 @@ import java.util.List;
  */
 public interface FetchReportsNumberCallBack {
 
-    void onReporsNumberFetched(List districts);
+    void onReportsNumberFetched(List districts);
 
-    void onReporsNumberFetchedFailed(String message);
+    void onReportsNumberFetchedFailed(String message);
 
 }
