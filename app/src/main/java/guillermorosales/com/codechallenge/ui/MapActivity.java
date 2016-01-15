@@ -131,7 +131,7 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
         map.clear();
         LinkedHashMap incidentsCountAux = (LinkedHashMap) incidentsCount.clone();
         for (SFReportsModel report : reports) {
-            if (incidentsCountAux.get(report.getPddistrict()) != -1) {
+            if (incidentsCountAux.get(report.getPddistrict()) != null) {
                 int position = new ArrayList<String>(incidentsCountAux.keySet()).indexOf(
                         report.getPddistrict());
                 if (showDistrictsToggle) {
@@ -139,7 +139,7 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
                             ((String) incidentsCountAux.get(report.getPddistrict())));
                 }
 
-                incidentsCountAux.put(report.getPddistrict(), -1);
+                incidentsCountAux.put(report.getPddistrict(),null);
             }
             if (showReportsToggle && reportsByCategory == null) {
                 paintReportOnMap(report);
