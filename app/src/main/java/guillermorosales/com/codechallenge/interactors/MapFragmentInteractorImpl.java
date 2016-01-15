@@ -19,17 +19,17 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by yasminegutierrez on 1/13/16.
+ * Created by Guillermo Romero on 1/13/16.
  */
 public class MapFragmentInteractorImpl implements MapFragmentInteractor {
 
-    static int LIMIT = 50;
+    private static int LIMIT = 50;
 
-    Retrofit retrofit = new Retrofit.Builder()
+    private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(SFGovService.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
 
-    SFGovService.PetlyServiceAPI service = retrofit.create(SFGovService.PetlyServiceAPI.class);
+    private SFGovService.PetlyServiceAPI service = retrofit.create(SFGovService.PetlyServiceAPI.class);
 
 
 

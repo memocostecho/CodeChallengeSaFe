@@ -6,7 +6,7 @@ import guillermorosales.com.codechallenge.callbacks.FetchReportsNumberCallBack;
 import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
 
 /**
- * Created by yasminegutierrez on 1/13/16.
+ * Created by Guillermo Romero on 1/13/16.
  */
 public interface MapFragmentInteractor {
 

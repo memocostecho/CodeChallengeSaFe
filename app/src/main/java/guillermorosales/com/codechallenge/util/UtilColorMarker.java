@@ -7,7 +7,7 @@ import android.support.v4.content.ContextCompat;
 import guillermorosales.com.codechallenge.R;
 
 /**
- * Created by yasminegutierrez on 1/13/16.
+ * Created by Guillermo Romero on 1/13/16.
  */
 public class UtilColorMarker {
 

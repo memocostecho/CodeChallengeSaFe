@@ -4,7 +4,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 
 /**
- * Created by yasminegutierrez on 1/15/16.
+ * Created by Guillermo Romero on 1/15/16.
  */
 public class UIUtil {
 

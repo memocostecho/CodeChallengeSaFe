@@ -1,7 +1,5 @@
 package guillermorosales.com.codechallenge.presenters;
 
-import android.content.Intent;
-
 import java.util.List;
 
 import guillermorosales.com.codechallenge.callbacks.FetchCategoriesCallBack;
@@ -12,13 +10,13 @@ import guillermorosales.com.codechallenge.interactors.MapFragmentInteractorImpl;
 import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
 
 /**
- * Created by yasminegutierrez on 1/13/16.
+ * Created by Guillermo Romero on 1/13/16.
  */
-public class MapFragmentPresenter implements Presenter,FetchReportsCallBack,FetchReportsNumberCallBack,FetchCategoriesCallBack {
+public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, FetchReportsNumberCallBack, FetchCategoriesCallBack {
 
 
-    MapView mapView;
-    MapFragmentInteractor interactor;
+    private MapView mapView;
+    private MapFragmentInteractor interactor;
 
 
     public MapFragmentPresenter(MapView mapView) {
@@ -27,25 +25,25 @@ public class MapFragmentPresenter implements Presenter,FetchReportsCallBack,Fetc
     }
 
 
-    public void fetchDistricts(){
+    public void fetchDistricts() {
         mapView.showProgress();
         interactor.fetchReportNumbersByDistrict(mapView, this);
     }
 
-    public void fetchReports(int page){
+    public void fetchReports(int page) {
 
         interactor.fetchReports(page, mapView, this);
     }
 
-    public void fetchReportsByCategory(String category){
+    public void fetchReportsByCategory(String category) {
 
-        interactor.fetchReportsByCategory(category,mapView,this);
+        interactor.fetchReportsByCategory(category, mapView, this);
 
     }
 
     @Override
     public void start() {
-        interactor.fetchCategories(mapView,this);
+        interactor.fetchCategories(mapView, this);
     }
 
 

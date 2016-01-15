@@ -7,7 +7,7 @@ import guillermorosales.com.codechallenge.model.ReportCountModel;
 import guillermorosales.com.codechallenge.model.SFReportsModel;
 
 /**
- * Created by yasminegutierrez on 1/13/16.
+ * Created by Guillermo Romero on 1/13/16.
  */
 public interface MapView extends View{
 

@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by yasminegutierrez on 1/14/16.
+ * Created by Guillermo Romero on 1/14/16.
  */
 public class UtilDate {
 

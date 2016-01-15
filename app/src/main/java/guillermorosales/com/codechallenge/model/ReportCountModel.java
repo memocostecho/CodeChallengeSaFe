@@ -1,7 +1,7 @@
 package guillermorosales.com.codechallenge.model;
 
 /**
- * Created by yasminegutierrez on 1/14/16.
+ * Created by Guillermo Romero on 1/14/16.
  */
 public class ReportCountModel {
 
