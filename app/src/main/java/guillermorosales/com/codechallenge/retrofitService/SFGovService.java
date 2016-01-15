@@ -23,10 +23,6 @@ public class SFGovService {
         Observable<List<SFReportsModel>> fetchReports(@Query("$query") String query);
 
         @GET("/resource/ritf-b9ki.json")
-        Observable<List<SFReportsModel>> fetchReportsByCategory(@Query("$query") String query);
-
-
-        @GET("/resource/ritf-b9ki.json")
         Observable<List<ReportCountModel>> fetchIncidentsNumber(@Query("$query")String query);
 
         @GET("/resource/ritf-b9ki.json")

@@ -15,17 +15,5 @@ public interface Presenter {
      */
     void start();
 
-    /**
-     * Called when presenter is resumed
-     */
-    void resume();
-
-    /**
-     * Called when presenter is paused
-     */
-    void pause();
-
-    void activityResult(int requestCode, int resultCode, Intent data);
-
 
     }

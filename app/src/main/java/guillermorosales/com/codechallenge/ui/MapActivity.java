@@ -5,25 +5,21 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -81,14 +77,12 @@ public class MapActivity extends AppCompatActivity implements MapView,OnMapReady
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-
         if(item.getTitle().equals("ALL")) {
             paintMap();
         }
         else {
             presenter.fetchReportsByCategory(item.getTitle().toString());
         }
-
         return true;
     }
 
@@ -105,18 +99,12 @@ public class MapActivity extends AppCompatActivity implements MapView,OnMapReady
         }
 
         showReportsToggle = !showReportsToggle;
-
         paintMap();
-
-
-
-
 
     }
 
     @OnClick(R.id.districts_map_toggle)
     public void toogleDistricts(ImageView view){
-
 
         map.clear();
 
@@ -129,15 +117,11 @@ public class MapActivity extends AppCompatActivity implements MapView,OnMapReady
         }
 
         showDistrictsToggle = !showDistrictsToggle;
-
         paintMap();
-
-
 
     }
 
     public void initializeLoadingIndicator(){
-
         mDialog= new ProgressDialog(MapActivity.this);
         mDialog.setMessage(getResources().getString(R.string.loading_map_message));
         mDialog.setCancelable(false);
@@ -145,11 +129,8 @@ public class MapActivity extends AppCompatActivity implements MapView,OnMapReady
 
     @Override
     public void setReports(List<SFReportsModel> reports) {
-
-
         this.reports = reports;
         paintMap();
-
     }
 
     @Override
@@ -161,32 +142,23 @@ public class MapActivity extends AppCompatActivity implements MapView,OnMapReady
     public void paintMap(){
 
         map.clear();
-
         LinkedHashMap incidentsCountAux = (LinkedHashMap)incidentsCount.clone();
 
         for (SFReportsModel report : reports) {
-
             if(incidentsCountAux.get(report.getPddistrict())!=-1){
-
                 int position = new ArrayList<String>(incidentsCountAux.keySet()).indexOf(report.getPddistrict());
-
                 if(showDistrictsToggle)
                 {
-
                     paintDistrictMarkerOnMap(position,report,Integer.parseInt((String)incidentsCountAux.get(report.getPddistrict())));
                 }
 
-
-
                 incidentsCountAux.put(report.getPddistrict(), -1);
-
             }
 
             if (showReportsToggle && reportsByCategory==null) {
                 paintReportOnMap(report);
             }
         }
-
         if(reportsByCategory!=null){
 
             for(SFReportsModel report: reportsByCategory){
@@ -195,26 +167,17 @@ public class MapActivity extends AppCompatActivity implements MapView,OnMapReady
 
             reportsByCategory = null;
 
-
         }
-
-
     }
 
     public void paintReportOnMap(SFReportsModel report){
-
-
             map.addMarker(new MarkerOptions()
                     .position(new LatLng(Float.parseFloat(report.getLocation().getLatitude()), Float.parseFloat(report.getLocation().getLongitude()))).icon(BitmapDescriptorFactory.fromResource(R.drawable.inc))
                     .title(report.getCategory()).snippet(report.getDate().substring(0, report.getDate().indexOf("T")) + " at " + report.getTime()));
-
-
-
     }
 
 
     public void paintDistrictMarkerOnMap(int position,SFReportsModel report,int reportsNum){
-
         map.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.defaultMarker(UtilColorMarker.getColorCode(this,position)))
                 .position(new LatLng(Float.parseFloat(report.getY()), Float.parseFloat(report.getX())))
@@ -226,14 +189,7 @@ public class MapActivity extends AppCompatActivity implements MapView,OnMapReady
     public void setDistrictsData(List<ReportCountModel> districtsData) {
 
         for (ReportCountModel district : districtsData) {
-
-
-
             incidentsCount.put(district.getPddistrict(),district.getCount());
-
-
-
-
         }
 
 
@@ -244,11 +200,8 @@ public class MapActivity extends AppCompatActivity implements MapView,OnMapReady
     public void setCategories(List<CategoriesModel> categories) {
 
         menu.add("ALL");
-
         for (CategoriesModel category: categories){
-
             menu.add(category.getCategory());
-
         }
 
     }
@@ -280,7 +233,6 @@ public class MapActivity extends AppCompatActivity implements MapView,OnMapReady
         map = googleMap;
         presenter.fetchDistricts();
     }
-
 
 
 }

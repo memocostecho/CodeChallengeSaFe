@@ -29,7 +29,7 @@ public class MapFragmentPresenter implements Presenter,FetchReportsCallBack,Fetc
 
     public void fetchDistricts(){
         mapView.showProgress();
-        interactor.fetchReportNumbersByDistrict(mapView,this);
+        interactor.fetchReportNumbersByDistrict(mapView, this);
     }
 
     public void fetchReports(int page){
@@ -48,21 +48,6 @@ public class MapFragmentPresenter implements Presenter,FetchReportsCallBack,Fetc
         interactor.fetchCategories(mapView,this);
     }
 
-    @Override
-    public void resume() {
-
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void activityResult(int requestCode, int resultCode, Intent data) {
-
-    }
 
     @Override
     public void onReportsFetched(List reports) {
@@ -89,7 +74,7 @@ public class MapFragmentPresenter implements Presenter,FetchReportsCallBack,Fetc
 
     @Override
     public void onReporsNumberFetchedFailed(String message) {
-
+        mapView.throwErrorMessage(message);
     }
 
     @Override
@@ -99,6 +84,6 @@ public class MapFragmentPresenter implements Presenter,FetchReportsCallBack,Fetc
 
     @Override
     public void onCategoriesFetchFailed(String message) {
-
+        mapView.throwErrorMessage(message);
     }
 }
