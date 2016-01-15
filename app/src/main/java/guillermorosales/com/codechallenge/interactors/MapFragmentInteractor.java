@@ -16,6 +16,7 @@ public interface MapFragmentInteractor {
 
     void fetchCategories(MapView mapView, final FetchCategoriesCallBack callBack);
 
-    void fetchReportsByCategory(String category, final MapView mapView, final FetchReportsCallBack callBack);
+    void fetchReportsByCategory(String category, final MapView mapView, final FetchReportsCallBack
+            callBack);
 
 }

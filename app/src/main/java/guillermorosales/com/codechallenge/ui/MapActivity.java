@@ -131,9 +131,11 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
         LinkedHashMap incidentsCountAux = (LinkedHashMap) incidentsCount.clone();
         for (SFReportsModel report : reports) {
             if (incidentsCountAux.get(report.getPddistrict()) != -1) {
-                int position = new ArrayList<String>(incidentsCountAux.keySet()).indexOf(report.getPddistrict());
+                int position = new ArrayList<String>(incidentsCountAux.keySet()).indexOf(
+                        report.getPddistrict());
                 if (showDistrictsToggle) {
-                    paintDistrictMarkerOnMap(position, report, Integer.parseInt((String) incidentsCountAux.get(report.getPddistrict())));
+                    paintDistrictMarkerOnMap(position, report, Integer.parseInt
+                            ((String) incidentsCountAux.get(report.getPddistrict())));
                 }
 
                 incidentsCountAux.put(report.getPddistrict(), -1);
@@ -152,8 +154,11 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
 
     public void paintReportOnMap(SFReportsModel report) {
         map.addMarker(new MarkerOptions()
-                .position(new LatLng(Float.parseFloat(report.getLocation().getLatitude()), Float.parseFloat(report.getLocation().getLongitude()))).icon(BitmapDescriptorFactory.fromResource(R.drawable.inc))
-                .title(report.getCategory()).snippet(report.getDate().substring(0, report.getDate().indexOf("T")) + " at " + report.getTime()));
+                .position(new LatLng(Float.parseFloat(report.getLocation().getLatitude()), Float
+                        .parseFloat(report.getLocation().getLongitude()))).icon(BitmapDescriptorFactory
+                        .fromResource(R.drawable.inc))
+                .title(report.getCategory()).snippet(report.getDate().substring(0, report.getDate()
+                        .indexOf("T")) + " at " + report.getTime()));
     }
 
 
