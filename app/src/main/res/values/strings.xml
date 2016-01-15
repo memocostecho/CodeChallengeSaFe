@@ -5,6 +5,14 @@
 
     <string name= "loading_map_message">"Loading data..."</string>>
 
-    <string name= "message_success">Successfully loaded 30 days of incidents</string>>
+    <string name= "message_success">Successfully loaded 50 incidents of the last month</string>
+
+    <string name= "map_camera_targetLat">37.772630108116</string>
+
+    <string name= "map_camera_targetLong">-122.452597176437</string>
+
+    <string name= "map_camera_tilt">30</string>
+
+    <string name= "map_camera_zoom">12</string>
 
 </resources>

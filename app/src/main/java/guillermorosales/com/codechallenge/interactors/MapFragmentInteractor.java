@@ -1,6 +1,8 @@
 package guillermorosales.com.codechallenge.interactors;
 
-import guillermorosales.com.codechallenge.callbacks.FetchDistrictsCallBack;
+import guillermorosales.com.codechallenge.callbacks.FetchCategoriesCallBack;
+import guillermorosales.com.codechallenge.callbacks.FetchReportsCallBack;
+import guillermorosales.com.codechallenge.callbacks.FetchReportsNumberCallBack;
 import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
 
 /**
@@ -8,5 +10,9 @@ import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
  */
 public interface MapFragmentInteractor {
 
-    void fetchDistricts(int page,MapView mapView,FetchDistrictsCallBack callBack);
+    void fetchReports(int page, MapView mapView, FetchReportsCallBack callBack);
+    void fetchReportNumbersByDistrict(MapView mapView, FetchReportsNumberCallBack callBack);
+    void fetchCategories(MapView mapView,final FetchCategoriesCallBack callBack);
+    void fetchReportsByCategory(String category, final MapView mapView, final FetchReportsCallBack callBack);
+
 }

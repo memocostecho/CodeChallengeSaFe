@@ -4,7 +4,9 @@ import android.content.Intent;
 
 import java.util.List;
 
-import guillermorosales.com.codechallenge.callbacks.FetchDistrictsCallBack;
+import guillermorosales.com.codechallenge.callbacks.FetchCategoriesCallBack;
+import guillermorosales.com.codechallenge.callbacks.FetchReportsCallBack;
+import guillermorosales.com.codechallenge.callbacks.FetchReportsNumberCallBack;
 import guillermorosales.com.codechallenge.interactors.MapFragmentInteractor;
 import guillermorosales.com.codechallenge.interactors.MapFragmentInteractorImpl;
 import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
@@ -12,7 +14,7 @@ import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
 /**
  * Created by yasminegutierrez on 1/13/16.
  */
-public class MapFragmentPresenter implements Presenter,FetchDistrictsCallBack {
+public class MapFragmentPresenter implements Presenter,FetchReportsCallBack,FetchReportsNumberCallBack,FetchCategoriesCallBack {
 
 
     MapView mapView;
@@ -25,14 +27,25 @@ public class MapFragmentPresenter implements Presenter,FetchDistrictsCallBack {
     }
 
 
-    public void fetchDistricts(int page){
+    public void fetchDistricts(){
         mapView.showProgress();
-        interactor.fetchDistricts(page,mapView,this);
+        interactor.fetchReportNumbersByDistrict(mapView,this);
+    }
+
+    public void fetchReports(int page){
+
+        interactor.fetchReports(page, mapView, this);
+    }
+
+    public void fetchReportsByCategory(String category){
+
+        interactor.fetchReportsByCategory(category,mapView,this);
+
     }
 
     @Override
     public void start() {
-
+        interactor.fetchCategories(mapView,this);
     }
 
     @Override
@@ -52,14 +65,40 @@ public class MapFragmentPresenter implements Presenter,FetchDistrictsCallBack {
     }
 
     @Override
-    public void onDistrictsFetched(List districts) {
-        mapView.setDistricts(districts);
+    public void onReportsFetched(List reports) {
+        mapView.setReports(reports);
         mapView.hideProgress();
         mapView.showSuccess();
     }
 
     @Override
-    public void onDistrictsFetchFailed(String message) {
+    public void onReportsFetchedByCategory(List reports) {
+        mapView.setReportsByCategory(reports);
+
+    }
+
+    @Override
+    public void onReportsFetchFailed(String message) {
         mapView.throwErrorMessage(message);
+    }
+
+    @Override
+    public void onReporsNumberFetched(List districts) {
+        mapView.setDistrictsData(districts);
+    }
+
+    @Override
+    public void onReporsNumberFetchedFailed(String message) {
+
+    }
+
+    @Override
+    public void onCategoriesFetched(List categories) {
+        mapView.setCategories(categories);
+    }
+
+    @Override
+    public void onCategoriesFetchFailed(String message) {
+
     }
 }

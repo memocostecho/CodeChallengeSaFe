@@ -11,6 +11,12 @@
     <color name="danger2">#c5a300</color>
     <color name="danger1">#b9c800</color>
     <color name="danger0">#a6ff00</color>
+    <color name="report_color">#FFC53968</color>
+    <color name="menu_map_menu_background">#7e4caed9</color>
+
+
+
+
 
 
 </resources>

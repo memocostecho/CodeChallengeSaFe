@@ -9,7 +9,7 @@ import java.util.Date;
 public class UtilDate {
 
 
-    public static String getSupDateQuery(){
+    public static String getCurrentDayString(){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
 
@@ -25,7 +25,7 @@ public class UtilDate {
     }
 
 
-    public static String getInfDateQuery(){
+    public static String getLastMonthDateString(){
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -46,5 +46,24 @@ public class UtilDate {
 
         return "'"+year+"-"+month+"-"+day+"'";
     }
+
+
+    public static String getLastYearDateString(){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+
+        int month;
+        int year;
+        int day;
+
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        month =calendar.get(Calendar.MONTH)+1;
+        year = calendar.get(Calendar.YEAR)-1;
+
+        return "'"+year+"-"+month+"-"+day+"'";
+    }
+
+
 
 }

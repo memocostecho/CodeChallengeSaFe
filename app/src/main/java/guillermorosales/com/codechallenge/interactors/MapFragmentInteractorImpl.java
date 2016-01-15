@@ -1,8 +1,13 @@
 package guillermorosales.com.codechallenge.interactors;
 
 import java.util.List;
-import guillermorosales.com.codechallenge.callbacks.FetchDistrictsCallBack;
-import guillermorosales.com.codechallenge.model.SFDistrictsModel;
+
+import guillermorosales.com.codechallenge.callbacks.FetchCategoriesCallBack;
+import guillermorosales.com.codechallenge.callbacks.FetchReportsCallBack;
+import guillermorosales.com.codechallenge.callbacks.FetchReportsNumberCallBack;
+import guillermorosales.com.codechallenge.model.CategoriesModel;
+import guillermorosales.com.codechallenge.model.ReportCountModel;
+import guillermorosales.com.codechallenge.model.SFReportsModel;
 import guillermorosales.com.codechallenge.retrofitService.SFGovService;
 import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
 import guillermorosales.com.codechallenge.util.UtilDate;
@@ -30,21 +35,14 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
 
 
     @Override
-    public void fetchDistricts(int page, final MapView mapView, final FetchDistrictsCallBack callBack) {
+    public void fetchReports(int page, final MapView mapView, final FetchReportsCallBack callBack) {
 
-        service.fetchDistrictsInfo("select * where date <"+ UtilDate.getSupDateQuery()+" AND date > "+UtilDate.getInfDateQuery()+" LIMIT "+LIMIT+" OFFSET "+page*LIMIT).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).doOnError(new Action1<Throwable>() {
+        service.fetchReports("select * where date <" + UtilDate.getCurrentDayString() + " AND date > " + UtilDate.getLastMonthDateString() + " LIMIT " + LIMIT + " OFFSET " + page * LIMIT).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<SFReportsModel>>() {
             @Override
-            public void call(Throwable throwable) {
-
-                callBack.onDistrictsFetchFailed(throwable.getMessage());
-
-            }
-        }).subscribe(new Action1<List<SFDistrictsModel>>() {
-            @Override
-            public void call(List<SFDistrictsModel> sfDistrictsModels) {
+            public void call(List<SFReportsModel> sfDistrictsModels) {
 
 
-                callBack.onDistrictsFetched(sfDistrictsModels);
+                callBack.onReportsFetched(sfDistrictsModels);
 
 
             }
@@ -53,4 +51,61 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
         });
 
     }
+
+    @Override
+    public void fetchReportsByCategory(String category, final MapView mapView, final FetchReportsCallBack callBack) {
+
+        service.fetchReports("select * where date <" + UtilDate.getCurrentDayString() + " AND date > " + UtilDate.getLastYearDateString() + " AND category = '"+category+"' LIMIT " + LIMIT).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<SFReportsModel>>() {
+            @Override
+            public void call(List<SFReportsModel> sfDistrictsModels) {
+
+
+                callBack.onReportsFetchedByCategory(sfDistrictsModels);
+
+
+            }
+
+
+        });
+
+    }
+
+
+    @Override
+    public void fetchReportNumbersByDistrict(final MapView mapView, final FetchReportsNumberCallBack callBack) {
+
+        service.fetchIncidentsNumber("select pddistrict,count(*) where date>" + UtilDate.getLastYearDateString() + " GROUP BY pddistrict order by count").subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<ReportCountModel>>() {
+            @Override
+            public void call(List<ReportCountModel> sfDistrictsModels) {
+
+
+                callBack.onReporsNumberFetched(sfDistrictsModels);
+
+
+            }
+
+
+        });
+
+    }
+
+
+
+    @Override
+    public void fetchCategories(MapView mapView, final FetchCategoriesCallBack callBack) {
+
+        service.fetchIncidentCategories("select category  where date> '2015-12-01'   group by category LIMIT 50").subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<CategoriesModel>>() {
+            @Override
+            public void call(List<CategoriesModel> sfDistrictsModels) {
+
+                callBack.onCategoriesFetched(sfDistrictsModels);
+
+            }
+
+
+        });
+
+    }
+
+
 }

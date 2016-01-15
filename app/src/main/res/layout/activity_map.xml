@@ -19,19 +19,54 @@
         android:layout_height="wrap_content"
         />
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/map"
-        tools:context=".MapsActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        map:cameraTargetLat="37.772630108116"
-        map:cameraTargetLng="-122.452597176437"
-        map:cameraTilt="30"
-        map:cameraZoom="12"
-        />
+        android:layout_height="match_parent">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/map"
+            tools:context=".MapsActivity"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            map:cameraTargetLat="@string/map_camera_targetLat"
+            map:cameraTargetLng="@string/map_camera_targetLong"
+            map:cameraTilt="@string/map_camera_tilt"
+            map:cameraZoom="@string/map_camera_zoom"
+            />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:background="@color/menu_map_menu_background"
+            android:layout_marginRight="@dimen/activity_map_lateral_menu_margin">
+
+            <ImageView
+                android:layout_width="@dimen/activity_map_lateral_menu_reports_icon_size"
+                android:layout_height="@dimen/activity_map_lateral_menu_reports_icon_size"
+                android:id="@+id/reports_map_toggle"
+                android:layout_gravity="right|center_vertical"
+                android:src="@drawable/inc"
+                android:layout_marginLeft="@dimen/activity_map_lateral_menu_margin"
+                android:layout_marginTop="@dimen/activity_map_lateral_menu_margin"
+                android:layout_marginRight="@dimen/activity_map_lateral_menu_margin" />
+
+            <ImageView
+                android:layout_width="@dimen/activity_map_lateral_menu_districts_icon_size"
+                android:layout_height="@dimen/activity_map_lateral_menu_districts_icon_size"
+                android:id="@+id/districts_map_toggle"
+                android:layout_gravity="right"
+                android:src="@drawable/ic_place_black_24dp"
+                android:tint="@color/danger0"
+                android:layout_margin="@dimen/activity_map_lateral_menu_margin" />
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

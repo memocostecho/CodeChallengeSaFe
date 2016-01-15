@@ -1,7 +1,7 @@
 
 package guillermorosales.com.codechallenge.model;
 
-public class SFDistrictsModel {
+public class SFReportsModel {
 
     private String time;
     private String category;
