@@ -9,27 +9,25 @@ import java.util.TreeMap;
  */
 public class UtilMap implements Comparator {
 
-
     Map map;
 
     public UtilMap(Map map) {
         this.map = map;
     }
 
-    public int compare(Object keyA, Object keyB) {
-        Comparable valueA = (Comparable) map.get(keyA);
-        Comparable valueB = (Comparable) map.get(keyB);
-        if(valueA.equals(valueB))
-            return 1;
-        else
-            return valueA.compareTo(valueB);
-    }
-
-
-
     public static Map sortByValue(Map unsortedMap) {
         Map sortedMap = new TreeMap(new UtilMap(unsortedMap));
         sortedMap.putAll(unsortedMap);
         return sortedMap;
     }
+
+    public int compare(Object keyA, Object keyB) {
+        Comparable valueA = (Comparable) map.get(keyA);
+        Comparable valueB = (Comparable) map.get(keyB);
+        if (valueA.equals(valueB))
+            return 1;
+        else
+            return valueA.compareTo(valueB);
+    }
+
 }

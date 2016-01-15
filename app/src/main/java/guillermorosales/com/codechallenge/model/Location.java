@@ -1,4 +1,3 @@
-
 package guillermorosales.com.codechallenge.model;
 
 public class Location {
@@ -9,72 +8,56 @@ public class Location {
     private String humanAddress;
 
     /**
-     * 
-     * @return
-     *     The needsRecoding
+     * @return The needsRecoding
      */
     public Boolean getNeedsRecoding() {
         return needsRecoding;
     }
 
     /**
-     * 
-     * @param needsRecoding
-     *     The needs_recoding
+     * @param needsRecoding The needs_recoding
      */
     public void setNeedsRecoding(Boolean needsRecoding) {
         this.needsRecoding = needsRecoding;
     }
 
     /**
-     * 
-     * @return
-     *     The longitude
+     * @return The longitude
      */
     public String getLongitude() {
         return longitude;
     }
 
     /**
-     * 
-     * @param longitude
-     *     The longitude
+     * @param longitude The longitude
      */
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
     /**
-     * 
-     * @return
-     *     The latitude
+     * @return The latitude
      */
     public String getLatitude() {
         return latitude;
     }
 
     /**
-     * 
-     * @param latitude
-     *     The latitude
+     * @param latitude The latitude
      */
     public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
     /**
-     * 
-     * @return
-     *     The humanAddress
+     * @return The humanAddress
      */
     public String getHumanAddress() {
         return humanAddress;
     }
 
     /**
-     * 
-     * @param humanAddress
-     *     The human_address
+     * @param humanAddress The human_address
      */
     public void setHumanAddress(String humanAddress) {
         this.humanAddress = humanAddress;

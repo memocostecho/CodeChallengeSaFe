@@ -14,7 +14,6 @@ import rx.Observable;
  */
 public class SFGovService {
 
-
     public static final String BASE_URL = "https://data.sfgov.org";
 
     public interface PetlyServiceAPI {
@@ -23,13 +22,11 @@ public class SFGovService {
         Observable<List<SFReportsModel>> fetchReports(@Query("$query") String query);
 
         @GET("/resource/ritf-b9ki.json")
-        Observable<List<ReportCountModel>> fetchIncidentsNumber(@Query("$query")String query);
+        Observable<List<ReportCountModel>> fetchIncidentsNumber(@Query("$query") String query);
 
         @GET("/resource/ritf-b9ki.json")
-        Observable<List<CategoriesModel>> fetchIncidentCategories(@Query("$query")String query);
+        Observable<List<CategoriesModel>> fetchIncidentCategories(@Query("$query") String query);
 
     }
-
-
 
 }

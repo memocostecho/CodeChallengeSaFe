@@ -8,7 +8,6 @@ public class ReportCountModel {
     private String count;
     private String pddistrict;
 
-
     public String getCount() {
         return count;
     }

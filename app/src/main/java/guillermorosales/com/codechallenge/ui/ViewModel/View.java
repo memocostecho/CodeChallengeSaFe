@@ -12,4 +12,5 @@ public interface View {
     void showSuccess(String message);
 
     void throwErrorMessage(String message);
+
 }

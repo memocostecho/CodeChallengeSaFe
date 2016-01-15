@@ -9,12 +9,14 @@ import guillermorosales.com.codechallenge.model.SFReportsModel;
 /**
  * Created by Guillermo Romero on 1/13/16.
  */
-public interface MapView extends View{
+public interface MapView extends View {
 
     void setReports(List<SFReportsModel> reports);
-    void setReportsByCategory(List<SFReportsModel> reports);
-    void setDistrictsData(List<ReportCountModel> districtsData);
-    void setCategories(List<CategoriesModel> categories);
 
+    void setReportsByCategory(List<SFReportsModel> reports);
+
+    void setDistrictsData(List<ReportCountModel> districtsData);
+
+    void setCategories(List<CategoriesModel> categories);
 
 }

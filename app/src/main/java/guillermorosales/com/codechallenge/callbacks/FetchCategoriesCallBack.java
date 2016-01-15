@@ -8,5 +8,6 @@ import java.util.List;
 public interface FetchCategoriesCallBack {
 
     void onCategoriesFetched(List categories);
+
     void onCategoriesFetchFailed(String message);
 }

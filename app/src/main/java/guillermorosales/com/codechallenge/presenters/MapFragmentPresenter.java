@@ -17,16 +17,13 @@ import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
  */
 public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, FetchReportsNumberCallBack, FetchCategoriesCallBack {
 
-
     private MapView mapView;
     private MapFragmentInteractor interactor;
-
 
     public MapFragmentPresenter(MapView mapView) {
         this.mapView = mapView;
         interactor = new MapFragmentInteractorImpl();
     }
-
 
     public void fetchDistricts() {
         mapView.showProgress();
@@ -34,14 +31,12 @@ public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, Fe
     }
 
     public void fetchReports(int page) {
-
         interactor.fetchReports(page, mapView, this);
     }
 
     public void fetchReportsByCategory(String category) {
         mapView.showProgress();
         interactor.fetchReportsByCategory(category, mapView, this);
-
     }
 
     @Override
@@ -54,15 +49,14 @@ public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, Fe
     public void onReportsFetched(List<SFReportsModel> reports) {
         mapView.setReports(reports);
         mapView.hideProgress();
-        mapView.showSuccess(((MapActivity) mapView).getResources().getString(R.string.message_success_get_reports,reports.size()));
+        mapView.showSuccess(((MapActivity) mapView).getResources().getString(R.string.message_success_get_reports, reports.size()));
     }
 
     @Override
     public void onReportsFetchedByCategory(List<SFReportsModel> reports) {
         mapView.setReportsByCategory(reports);
         mapView.hideProgress();
-        mapView.showSuccess(((MapActivity) mapView).getResources().getString(R.string.message_success_get_reports_by_category,reports.size(), reports.get(0).getCategory()));
-
+        mapView.showSuccess(((MapActivity) mapView).getResources().getString(R.string.message_success_get_reports_by_category, reports.size(), reports.get(0).getCategory()));
     }
 
     @Override
