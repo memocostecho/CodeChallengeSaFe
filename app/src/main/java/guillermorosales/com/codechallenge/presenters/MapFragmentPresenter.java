@@ -2,11 +2,14 @@ package guillermorosales.com.codechallenge.presenters;
 
 import java.util.List;
 
+import guillermorosales.com.codechallenge.R;
 import guillermorosales.com.codechallenge.callbacks.FetchCategoriesCallBack;
 import guillermorosales.com.codechallenge.callbacks.FetchReportsCallBack;
 import guillermorosales.com.codechallenge.callbacks.FetchReportsNumberCallBack;
 import guillermorosales.com.codechallenge.interactors.MapFragmentInteractor;
 import guillermorosales.com.codechallenge.interactors.MapFragmentInteractorImpl;
+import guillermorosales.com.codechallenge.model.SFReportsModel;
+import guillermorosales.com.codechallenge.ui.MapActivity;
 import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
 
 /**
@@ -36,7 +39,7 @@ public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, Fe
     }
 
     public void fetchReportsByCategory(String category) {
-
+        mapView.showProgress();
         interactor.fetchReportsByCategory(category, mapView, this);
 
     }
@@ -48,15 +51,17 @@ public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, Fe
 
 
     @Override
-    public void onReportsFetched(List reports) {
+    public void onReportsFetched(List<SFReportsModel> reports) {
         mapView.setReports(reports);
         mapView.hideProgress();
-        mapView.showSuccess();
+        mapView.showSuccess(((MapActivity) mapView).getResources().getString(R.string.message_success_get_reports,reports.size()));
     }
 
     @Override
-    public void onReportsFetchedByCategory(List reports) {
+    public void onReportsFetchedByCategory(List<SFReportsModel> reports) {
         mapView.setReportsByCategory(reports);
+        mapView.hideProgress();
+        mapView.showSuccess(((MapActivity) mapView).getResources().getString(R.string.message_success_get_reports_by_category,reports.size(), reports.get(0).getCategory()));
 
     }
 

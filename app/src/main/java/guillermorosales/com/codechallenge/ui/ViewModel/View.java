@@ -9,7 +9,7 @@ public interface View {
 
     void hideProgress();
 
-    void showSuccess();
+    void showSuccess(String message);
 
     void throwErrorMessage(String message);
 }

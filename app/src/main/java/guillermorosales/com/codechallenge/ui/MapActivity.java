@@ -217,9 +217,9 @@ public class MapActivity extends AppCompatActivity implements MapView,OnMapReady
     }
 
     @Override
-    public void showSuccess() {
+    public void showSuccess(String message) {
 
-        UIUtil.showSnackMessage(coordinatorLayout,getResources().getString(R.string.message_success));
+        UIUtil.showSnackMessage(coordinatorLayout,message);
 
     }
 
