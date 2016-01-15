@@ -75,7 +75,7 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getTitle().equals("ALL")) {
+        if (item.getTitle().equals(getResources().getString(R.string.all_filter_text))) {
             paintMap();
         } else {
             presenter.fetchReportsByCategory(item.getTitle().toString());
@@ -175,7 +175,7 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
 
     @Override
     public void setCategories(List<CategoriesModel> categories) {
-        menu.add("ALL");
+        menu.add(getResources().getString(R.string.all_filter_text));
         for (CategoriesModel category : categories) {
             menu.add(category.getCategory());
         }

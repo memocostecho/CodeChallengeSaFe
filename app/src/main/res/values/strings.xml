@@ -17,4 +17,6 @@
 
     <string name= "map_camera_zoom">12</string>
 
+    <string name= "all_filter_text">ALL</string>
+
 </resources>
