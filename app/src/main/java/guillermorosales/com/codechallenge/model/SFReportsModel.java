@@ -13,6 +13,16 @@ public class SFReportsModel {
     private String date;
     private String y;
     private String x;
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    private String adress;
     private String incidntnum;
 
     /**

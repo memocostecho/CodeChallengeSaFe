@@ -3,7 +3,7 @@ package guillermorosales.com.codechallenge.interactors;
 import guillermorosales.com.codechallenge.callbacks.FetchCategoriesCallBack;
 import guillermorosales.com.codechallenge.callbacks.FetchReportsCallBack;
 import guillermorosales.com.codechallenge.callbacks.FetchReportsNumberCallBack;
-import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
+import guillermorosales.com.codechallenge.ui.viewModel.MapView;
 
 /**
  * Created by Guillermo Romero on 1/13/16.

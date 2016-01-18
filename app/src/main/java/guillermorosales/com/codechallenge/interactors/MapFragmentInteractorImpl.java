@@ -9,7 +9,7 @@ import guillermorosales.com.codechallenge.model.CategoriesModel;
 import guillermorosales.com.codechallenge.model.ReportCountModel;
 import guillermorosales.com.codechallenge.model.SFReportsModel;
 import guillermorosales.com.codechallenge.retrofitService.SFGovService;
-import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
+import guillermorosales.com.codechallenge.ui.viewModel.MapView;
 import guillermorosales.com.codechallenge.util.UtilDate;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -79,13 +79,13 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
         service.fetchIncidentCategories("select category  where date> '2015-12-01'   group by category " +
                 "LIMIT 50").subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<CategoriesModel>>() {
-            @Override
-            public void call(List<CategoriesModel> sfDistrictsModels) {
-                callBack.onCategoriesFetched(sfDistrictsModels);
-            }
+                    @Override
+                    public void call(List<CategoriesModel> sfDistrictsModels) {
+                        callBack.onCategoriesFetched(sfDistrictsModels);
+                    }
 
 
-        });
+                });
     }
 
 }

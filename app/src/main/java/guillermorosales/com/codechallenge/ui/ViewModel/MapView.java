@@ -1,4 +1,4 @@
-package guillermorosales.com.codechallenge.ui.ViewModel;
+package guillermorosales.com.codechallenge.ui.viewModel;
 
 import java.util.List;
 
@@ -18,5 +18,7 @@ public interface MapView extends View {
     void setDistrictsData(List<ReportCountModel> districtsData);
 
     void setCategories(List<CategoriesModel> categories);
+
+    void showReportOnMap(SFReportsModel report);
 
 }

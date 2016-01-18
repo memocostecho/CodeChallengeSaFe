@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/fragment_reports_list_height"
+              android:orientation="horizontal"
+              android:id="@+id/report_list_item_container"
+              android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/fragment_reports_list_default_margin"
+        android:layout_weight="0.1"
+        android:src="@drawable/inc"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.6"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/report_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fragment_reports_list_default_margin"
+            android:layout_marginTop="@dimen/fragment_reports_list_default_margin"
+            android:text="Incident - District"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/darker_gray"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/report_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fragment_reports_list_default_margin"
+            android:text="Abuse"
+            android:textColor="@android:color/darker_gray"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015-12-30"
+            android:id="@+id/report_date"
+            android:layout_marginTop="@dimen/fragment_reports_list_medium_margin"
+            android:layout_marginRight="@dimen/fragment_reports_list_default_margin"
+            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="right"/>
+
+        <TextView
+            android:id="@+id/report_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/fragment_reports_list_large_margin"
+            android:text="09:00"
+            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="right"/>
+
+    </LinearLayout>
+
+</LinearLayout>

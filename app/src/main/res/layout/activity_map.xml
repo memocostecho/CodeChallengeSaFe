@@ -65,6 +65,28 @@
                 android:tint="@color/danger0"
                 android:layout_margin="@dimen/activity_map_lateral_menu_margin" />
         </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="@dimen/activity_map_lateral_menu_margin"
+            android:layout_marginBottom="90dp"
+            android:background="@color/menu_map_menu_background">
+
+            <ImageView
+                android:layout_width="@dimen/activity_map_lateral_menu_reports_icon_size"
+                android:layout_height="@dimen/activity_map_lateral_menu_reports_icon_size"
+                android:id="@+id/view_list"
+                android:src="@drawable/view_list"
+                android:tint="#cd235e"
+                android:layout_margin="13dp" />
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/reports_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_map_list_fragment_container_height"
+            android:layout_gravity="bottom"></FrameLayout>
 
     </FrameLayout>
 

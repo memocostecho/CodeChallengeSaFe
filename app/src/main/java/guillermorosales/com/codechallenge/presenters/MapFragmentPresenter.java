@@ -1,5 +1,7 @@
 package guillermorosales.com.codechallenge.presenters;
 
+import android.content.Context;
+
 import java.util.List;
 
 import guillermorosales.com.codechallenge.R;
@@ -9,8 +11,7 @@ import guillermorosales.com.codechallenge.callbacks.FetchReportsNumberCallBack;
 import guillermorosales.com.codechallenge.interactors.MapFragmentInteractor;
 import guillermorosales.com.codechallenge.interactors.MapFragmentInteractorImpl;
 import guillermorosales.com.codechallenge.model.SFReportsModel;
-import guillermorosales.com.codechallenge.ui.MapActivity;
-import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
+import guillermorosales.com.codechallenge.ui.viewModel.MapView;
 
 /**
  * Created by Guillermo Romero on 1/13/16.
@@ -19,9 +20,11 @@ public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, Fe
 
     private MapView mapView;
     private MapFragmentInteractor interactor;
+    private Context context;
 
-    public MapFragmentPresenter(MapView mapView) {
+    public MapFragmentPresenter(MapView mapView,Context context) {
         this.mapView = mapView;
+        this.context = context;
         interactor = new MapFragmentInteractorImpl();
     }
 
@@ -49,14 +52,15 @@ public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, Fe
     public void onReportsFetched(List<SFReportsModel> reports) {
         mapView.setReports(reports);
         mapView.hideProgress();
-        mapView.showSuccess(((MapActivity) mapView).getResources().getString(R.string.message_success_get_reports, reports.size()));
+        mapView.showSuccess(context.getResources().getString(R.string.message_success_get_reports,
+                reports.size()));
     }
 
     @Override
     public void onReportsFetchedByCategory(List<SFReportsModel> reports) {
         mapView.setReportsByCategory(reports);
         mapView.hideProgress();
-        mapView.showSuccess(((MapActivity) mapView).getResources().getString(R.string.message_success_get_reports_by_category, reports.size(), reports.get(0).getCategory()
+        mapView.showSuccess(context.getResources().getString(R.string.message_success_get_reports_by_category, reports.size(), reports.get(0).getCategory()
                 .toLowerCase()));
     }
 

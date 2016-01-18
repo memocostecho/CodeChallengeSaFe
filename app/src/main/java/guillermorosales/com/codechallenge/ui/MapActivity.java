@@ -11,18 +11,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,7 +31,8 @@ import guillermorosales.com.codechallenge.model.CategoriesModel;
 import guillermorosales.com.codechallenge.model.ReportCountModel;
 import guillermorosales.com.codechallenge.model.SFReportsModel;
 import guillermorosales.com.codechallenge.presenters.MapFragmentPresenter;
-import guillermorosales.com.codechallenge.ui.ViewModel.MapView;
+import guillermorosales.com.codechallenge.ui.fragments.ReportsListedFragment;
+import guillermorosales.com.codechallenge.ui.viewModel.MapView;
 import guillermorosales.com.codechallenge.util.UIUtil;
 import guillermorosales.com.codechallenge.util.UtilColorMarker;
 import guillermorosales.com.codechallenge.util.UtilString;
@@ -50,9 +51,11 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
     private LinkedHashMap incidentsCount = new LinkedHashMap();
     private boolean showDistrictsToggle = true;
     private boolean showReportsToggle = true;
+    private boolean showListFragmentToggle = false;
     private List<SFReportsModel> reports;
     private List<SFReportsModel> reportsByCategory;
     private Menu menu;
+    private ReportsListedFragment reportsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,8 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        presenter = new MapFragmentPresenter(this);
+        reportsFragment = new ReportsListedFragment();
+        presenter = new MapFragmentPresenter(this,getApplicationContext());
         presenter.start();
     }
 
@@ -108,6 +112,29 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
         showDistrictsToggle = !showDistrictsToggle;
         paintMap();
     }
+
+
+    @OnClick(R.id.view_list)
+    public void toogleListFragment(ImageView view) {
+
+        if(!showListFragmentToggle){
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("reports", (Serializable) reports);
+            reportsFragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fragment_in,
+                    R.anim.fragment_out)
+                    .add(R.id.reports_list_container, reportsFragment).commit();
+        }else{
+
+            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fragment_in,
+                    R.anim.fragment_out)
+                    .remove(reportsFragment).commit();
+
+        }
+        showListFragmentToggle = !showListFragmentToggle;
+
+    }
+
 
     public void initializeLoadingIndicator() {
         mDialog = new ProgressDialog(MapActivity.this);
@@ -186,6 +213,24 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
             menu.add(UtilString.capitalizeFirstLetter(category.getCategory().toLowerCase()));
         }
     }
+
+    @Override
+    public void showReportOnMap(SFReportsModel report) {
+
+        if(!reports.contains(report)){
+            paintReportOnMap(report);
+        }
+
+        CameraUpdate center=
+                CameraUpdateFactory.newLatLng(new LatLng(Float.parseFloat(
+                        report.getLocation().getLatitude()),
+                        Float.parseFloat(
+                                report.getLocation().getLongitude())));
+        CameraUpdate zoom=CameraUpdateFactory.zoomTo(20);
+        map.moveCamera(center);
+        map.animateCamera(zoom);
+    }
+
 
     @Override
     public void showProgress() {
