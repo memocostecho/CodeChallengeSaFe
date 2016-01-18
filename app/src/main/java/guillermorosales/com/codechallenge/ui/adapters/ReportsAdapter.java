@@ -22,7 +22,8 @@ import guillermorosales.com.codechallenge.util.UtilString;
 public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<SFReportsModel> reports= new ArrayList();
-
+    private final int REPORT_ITEM = 1;
+    private final int REPORT_LOADING = 2;
     private MapView mapView;
 
     public void setShowLoading(boolean showLoading) {
@@ -42,7 +43,7 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View itemView;
-        if(viewType==1){
+        if(viewType==REPORT_ITEM){
 
             itemView = LayoutInflater.
                     from(viewGroup.getContext()).
@@ -98,11 +99,11 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public int getItemViewType(int position) {
         if(position==reports.size()){
 
-            return 2;
+            return REPORT_LOADING;
 
         }else{
 
-            return 1;
+            return REPORT_ITEM;
 
         }
     }
