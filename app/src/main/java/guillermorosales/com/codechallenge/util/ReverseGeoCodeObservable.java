@@ -19,7 +19,8 @@ public class ReverseGeocodeObservable implements Observable.OnSubscribe<List<Add
     private final double longitude;
     private final int maxResults;
 
-    public static Observable<List<Address>> createObservable(Context ctx, double latitude, double longitude, int maxResults) {
+    public static Observable<List<Address>> createObservable(Context ctx, double latitude, double
+            longitude, int maxResults) {
         return Observable.create(new ReverseGeocodeObservable(ctx, latitude, longitude, maxResults));
     }
 
