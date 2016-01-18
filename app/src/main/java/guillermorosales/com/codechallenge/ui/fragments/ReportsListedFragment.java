@@ -56,7 +56,7 @@ public class ReportsListedFragment extends Fragment implements MapView,SwipeRefr
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_reports_list, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         linearManager = new LinearLayoutManager(getActivity());
         reportsRecycler.setLayoutManager(linearManager);
@@ -64,7 +64,7 @@ public class ReportsListedFragment extends Fragment implements MapView,SwipeRefr
                 (linearManager) {
             @Override
             public void onLoadMore(int current_page) {
-                    presenter.fetchReports(page);
+                    presenter.fetchReportsList(page);
                     page++;
             }
         });
@@ -72,8 +72,8 @@ public class ReportsListedFragment extends Fragment implements MapView,SwipeRefr
         adapter.setMapView((MapActivity) getActivity());
         reportsRecycler.setAdapter(adapter);
 
-        reports = (ArrayList)this.getArguments().getSerializable
-                ("reports");
+        reports = new ArrayList<>((ArrayList)this.getArguments().getSerializable
+                ("reports"));
         adapter.setReports(reports);
 
        for (final SFReportsModel report : reports){
@@ -102,11 +102,20 @@ public class ReportsListedFragment extends Fragment implements MapView,SwipeRefr
     }
 
     @Override
-    public void setReports(List<SFReportsModel> reports) {
+    public void setReports(List<SFReportsModel> reportsList) {
 
-        reports.addAll(reports);
-        adapter.setReports(reports);
-        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setReportsList(List<SFReportsModel> reportsList) {
+        if(reportsList.isEmpty()){
+            adapter.setShowLoading(false);
+            adapter.notifyDataSetChanged();
+        }else{
+            reports.addAll(reportsList);
+            adapter.setReports(reports);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -157,7 +166,7 @@ public class ReportsListedFragment extends Fragment implements MapView,SwipeRefr
 
     @Override
     public void onRefresh() {
-        presenter.fetchReports(0);
+        presenter.fetchReportsList(0);
     }
 }
 

@@ -6,6 +6,7 @@
     <dimen name="activity_map_lateral_menu_reports_icon_size">35dp</dimen>
     <dimen name="activity_map_lateral_menu_districts_icon_size">40dp</dimen>
     <dimen name="activity_map_list_fragment_container_height">200dp</dimen>
+    <dimen name="activity_map_list_fragment_loading_footer_height">70dp</dimen>
     <dimen name="fragment_reports_list_height">75dp</dimen>
     <dimen name="fragment_reports_list_default_margin">15dp</dimen>
     <dimen name="fragment_reports_list_medium_margin">18dp</dimen>

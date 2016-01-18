@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,12 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private MapView mapView;
 
+    public void setShowLoading(boolean showLoading) {
+        this.showLoading = showLoading;
+    }
+
+    private boolean showLoading = true;
+
     public void setReports(List<SFReportsModel> reports) {
         this.reports = reports;
     }
@@ -33,37 +40,71 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View itemView = LayoutInflater.
-                from(viewGroup.getContext()).
-                inflate(R.layout.reports_list_item, viewGroup, false);
-        return new ReportViewHolder(itemView);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View itemView;
+        if(viewType==1){
+
+            itemView = LayoutInflater.
+                    from(viewGroup.getContext()).
+                    inflate(R.layout.reports_list_item, viewGroup, false);
+            return new ReportViewHolder(itemView);
+
+        }else{
+
+            itemView = LayoutInflater.
+                    from(viewGroup.getContext()).
+                    inflate(R.layout.recyler_bottom_loading, viewGroup, false);
+            return new LoadingViewHolder(itemView);
+        }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
 
-        final ReportViewHolder holder = (ReportViewHolder) viewHolder;
-        final SFReportsModel report = reports.get(position);
-        holder.reportTitle.setText(UtilString.capitalizeFirstLetter(report.getCategory()
-                .toLowerCase())+" - " + UtilString.capitalizeFirstLetter(report.getPddistrict()
-                .toLowerCase()));
-        holder.reportAddress.setText(report.getAddress());
-        holder.reportTime.setText(report.getTime());
-        holder.reportDate.setText(report.getDate().substring(0, report.getDate()
-                .indexOf("T")));
-        holder.itemContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mapView.showReportOnMap(reports.get(position));
+        if(position<=reports.size()-1){
+
+            final ReportViewHolder holder = (ReportViewHolder) viewHolder;
+            final SFReportsModel report = reports.get(position);
+            holder.reportTitle.setText(UtilString.capitalizeFirstLetter(report.getCategory()
+                    .toLowerCase())+" - " + UtilString.capitalizeFirstLetter(report.getPddistrict()
+                    .toLowerCase()));
+            holder.reportAddress.setText(report.getAddress());
+            holder.reportTime.setText(report.getTime());
+            holder.reportDate.setText(report.getDate().substring(0, report.getDate()
+                    .indexOf("T")));
+            holder.itemContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mapView.showReportOnMap(reports.get(position));
+                }
+            });
+        }else{
+
+            if(!showLoading){
+                final LoadingViewHolder holder = (LoadingViewHolder) viewHolder;
+                holder.progressBar.setVisibility(View.INVISIBLE);
             }
-        });
+
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return reports.size();
+        return reports.size()+1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position==reports.size()){
+
+            return 2;
+
+        }else{
+
+            return 1;
+
+        }
     }
 
     public static class ReportViewHolder extends RecyclerView.ViewHolder {
@@ -79,6 +120,15 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         LinearLayout itemContainer;
 
         public ReportViewHolder(View v) {
+            super(v);
+            ButterKnife.bind(this, v);
+        }
+    }
+
+    public static class LoadingViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.bottom_progress)
+        ProgressBar progressBar;
+        public LoadingViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
         }

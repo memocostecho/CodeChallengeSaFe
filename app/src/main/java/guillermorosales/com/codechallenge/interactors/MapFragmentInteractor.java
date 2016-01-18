@@ -10,7 +10,9 @@ import guillermorosales.com.codechallenge.ui.viewModel.MapView;
  */
 public interface MapFragmentInteractor {
 
-    void fetchReports(int page, MapView mapView, FetchReportsCallBack callBack);
+    void fetchReportsList(int page, MapView mapView, FetchReportsCallBack callBack);
+
+    void fetchReports(MapView mapView, FetchReportsCallBack callBack);
 
     void fetchReportNumbersByDistrict(MapView mapView, FetchReportsNumberCallBack callBack);
 

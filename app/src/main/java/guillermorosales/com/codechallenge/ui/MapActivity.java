@@ -79,6 +79,15 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
     }
 
     @Override
+    public void onBackPressed() {
+        if(showListFragmentToggle){
+            toogleListFragment(null);
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getTitle().equals(getResources().getString(R.string.all_filter_text))) {
             paintMap();
@@ -149,6 +158,11 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
     }
 
     @Override
+    public void setReportsList(List<SFReportsModel> reports) {
+
+    }
+
+    @Override
     public void setReportsByCategory(List<SFReportsModel> reportsByCategory) {
         this.reportsByCategory = reportsByCategory;
         paintMap();
@@ -203,7 +217,7 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
         for (ReportCountModel district : districtsData) {
             incidentsCount.put(district.getPddistrict(), district.getCount());
         }
-        presenter.fetchReports(page);
+        presenter.fetchReports();
     }
 
     @Override

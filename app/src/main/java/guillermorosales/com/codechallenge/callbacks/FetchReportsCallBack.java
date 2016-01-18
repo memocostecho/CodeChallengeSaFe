@@ -9,7 +9,9 @@ import guillermorosales.com.codechallenge.model.SFReportsModel;
  */
 public interface FetchReportsCallBack {
 
-    void onReportsFetched(List<SFReportsModel> districts);
+    void onReportsListFetched(List<SFReportsModel> reports);
+
+    void onReportsFetched(List<SFReportsModel> reports);
 
     void onReportsFetchedByCategory(List<SFReportsModel> districts);
 

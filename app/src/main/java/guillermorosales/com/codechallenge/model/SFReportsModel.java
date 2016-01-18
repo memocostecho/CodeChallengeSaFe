@@ -1,6 +1,11 @@
 package guillermorosales.com.codechallenge.model;
 
-public class SFReportsModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class SFReportsModel implements Parcelable {
 
     private String time;
     private String category;
@@ -193,4 +198,13 @@ public class SFReportsModel {
         this.incidntnum = incidntnum;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
 }

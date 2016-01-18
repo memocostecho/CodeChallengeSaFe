@@ -33,8 +33,12 @@ public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, Fe
         interactor.fetchReportNumbersByDistrict(mapView, this);
     }
 
-    public void fetchReports(int page) {
-        interactor.fetchReports(page, mapView, this);
+    public void fetchReportsList(int page) {
+        interactor.fetchReportsList(page, mapView, this);
+    }
+
+    public void fetchReports() {
+        interactor.fetchReports( mapView, this);
     }
 
     public void fetchReportsByCategory(String category) {
@@ -49,6 +53,11 @@ public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, Fe
 
 
     @Override
+    public void onReportsListFetched(List<SFReportsModel> reports) {
+        mapView.setReportsList(reports);
+    }
+
+    @Override
     public void onReportsFetched(List<SFReportsModel> reports) {
         mapView.setReports(reports);
         mapView.hideProgress();
@@ -60,7 +69,8 @@ public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, Fe
     public void onReportsFetchedByCategory(List<SFReportsModel> reports) {
         mapView.setReportsByCategory(reports);
         mapView.hideProgress();
-        mapView.showSuccess(context.getResources().getString(R.string.message_success_get_reports_by_category, reports.size(), reports.get(0).getCategory()
+        mapView.showSuccess(context.getResources().getString(R.string
+                .message_success_get_reports_by_category, reports.size(), reports.get(0).getCategory()
                 .toLowerCase()));
     }
 

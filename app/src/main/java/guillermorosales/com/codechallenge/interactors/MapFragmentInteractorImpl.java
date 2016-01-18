@@ -30,7 +30,7 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
     private SFGovService.SFGovServiceAPI service = retrofit.create(SFGovService.SFGovServiceAPI.class);
 
     @Override
-    public void fetchReports(int page, final MapView mapView, final FetchReportsCallBack callBack) {
+    public void fetchReportsList(int page, final MapView mapView, final FetchReportsCallBack callBack) {
         service.fetchReports("select * where date <" + UtilDate.getCurrentDayString() + " AND " +
                 "date > " + UtilDate.getLastMonthDateString() + " LIMIT " + LIMIT + " OFFSET " +
                 page * LIMIT).subscribeOn(Schedulers.newThread())
@@ -38,9 +38,23 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
                 new Action1<List<SFReportsModel>>() {
             @Override
             public void call(List<SFReportsModel> sfDistrictsModels) {
-                callBack.onReportsFetched(sfDistrictsModels);
+                callBack.onReportsListFetched(sfDistrictsModels);
             }
         });
+    }
+
+    @Override
+    public void fetchReports(MapView mapView, final FetchReportsCallBack callBack) {
+
+        service.fetchReports("select * where date <" + UtilDate.getCurrentDayString() + " AND " +
+                "date > " + UtilDate.getLastMonthDateString() + " LIMIT " + LIMIT ).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                new Action1<List<SFReportsModel>>() {
+                    @Override
+                    public void call(List<SFReportsModel> sfDistrictsModels) {
+                        callBack.onReportsFetched(sfDistrictsModels);
+                    }
+                });
     }
 
     @Override

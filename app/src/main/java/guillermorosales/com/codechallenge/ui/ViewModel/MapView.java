@@ -13,6 +13,8 @@ public interface MapView extends View {
 
     void setReports(List<SFReportsModel> reports);
 
+    void setReportsList(List<SFReportsModel> reports);
+
     void setReportsByCategory(List<SFReportsModel> reports);
 
     void setDistrictsData(List<ReportCountModel> districtsData);
