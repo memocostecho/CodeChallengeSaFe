@@ -11,7 +11,7 @@ import guillermorosales.com.codechallenge.R;
  */
 public class UtilColorMarker {
 
-    public static float rgbToHue(float r, float g, float b) {
+    private static float rgbToHue(float r, float g, float b) {
 
         r = r / 255;
         g = g / 255;
@@ -65,7 +65,7 @@ public class UtilColorMarker {
         }
     }
 
-    public static float getHueColor(int color){
+    private static float getHueColor(int color){
         return UtilColorMarker.rgbToHue(Color.red(color), Color.green(color), Color.blue(color));
     }
 

@@ -22,7 +22,8 @@ import guillermorosales.com.codechallenge.presenters.MapFragmentPresenter;
 import guillermorosales.com.codechallenge.ui.MapActivity;
 import guillermorosales.com.codechallenge.ui.adapters.ReportsAdapter;
 import guillermorosales.com.codechallenge.ui.listeners.EndlessRecyclerOnScrollListener;
-import guillermorosales.com.codechallenge.ui.viewModel.MapView;
+import guillermorosales.com.codechallenge.ui.viewModel.MapViewModel;
+import guillermorosales.com.codechallenge.ui.viewModel.ReportListViewModel;
 import guillermorosales.com.codechallenge.util.ReverseGeocodeObservable;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -30,7 +31,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Guillermo Romero on 1/16/16.
  */
-public class ReportsListedFragment extends Fragment implements MapView,SwipeRefreshLayout
+public class ReportsListedFragment extends Fragment implements ReportListViewModel,SwipeRefreshLayout
         .OnRefreshListener {
 
     @Bind(R.id.reports_recycler)
@@ -101,10 +102,6 @@ public class ReportsListedFragment extends Fragment implements MapView,SwipeRefr
 
     }
 
-    @Override
-    public void setReports(List<SFReportsModel> reportsList) {
-
-    }
 
     @Override
     public void setReportsList(List<SFReportsModel> reportsList) {
@@ -118,51 +115,7 @@ public class ReportsListedFragment extends Fragment implements MapView,SwipeRefr
         }
     }
 
-    @Override
-    public void setReportsByCategory(List<SFReportsModel> reports) {
 
-    }
-
-    @Override
-    public void setDistrictsData(List<ReportCountModel> districtsData) {
-
-    }
-
-    @Override
-    public void setCategories(List<CategoriesModel> categories) {
-
-    }
-
-    @Override
-    public void showReportOnMap(SFReportsModel report) {
-
-    }
-
-    @Override
-    public void showProgress() {
-        mSwipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(true);
-            }
-        });
-    }
-
-    @Override
-    public void hideProgress() {
-        if(mSwipeRefreshLayout.isRefreshing())
-            mSwipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void showSuccess(String message) {
-
-    }
-
-    @Override
-    public void throwErrorMessage(String message) {
-
-    }
 
     @Override
     public void onRefresh() {

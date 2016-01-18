@@ -8,7 +8,7 @@ import android.support.design.widget.Snackbar;
  */
 public class UIUtil {
 
-    public static void showSnackMessage(CoordinatorLayout coordinatorLayout, String message) {
+    public void showSnackMessage(CoordinatorLayout coordinatorLayout, String message) {
         Snackbar snackbar = Snackbar
                 .make(coordinatorLayout, message, Snackbar.LENGTH_LONG);
         snackbar.show();

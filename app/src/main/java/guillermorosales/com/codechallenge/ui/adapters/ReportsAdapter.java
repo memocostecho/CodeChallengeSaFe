@@ -13,7 +13,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import guillermorosales.com.codechallenge.R;
 import guillermorosales.com.codechallenge.model.SFReportsModel;
-import guillermorosales.com.codechallenge.ui.viewModel.MapView;
+import guillermorosales.com.codechallenge.ui.viewModel.MapViewModel;
 import guillermorosales.com.codechallenge.util.UtilString;
 
 /**
@@ -24,7 +24,7 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private List<SFReportsModel> reports= new ArrayList();
     private final int REPORT_ITEM = 1;
     private final int REPORT_LOADING = 2;
-    private MapView mapView;
+    private MapViewModel mapView;
 
     public void setShowLoading(boolean showLoading) {
         this.showLoading = showLoading;
@@ -36,7 +36,7 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.reports = reports;
     }
 
-    public void setMapView(MapView mapView) {
+    public void setMapView(MapViewModel mapView) {
         this.mapView = mapView;
     }
 

@@ -11,22 +11,32 @@ import guillermorosales.com.codechallenge.callbacks.FetchReportsNumberCallBack;
 import guillermorosales.com.codechallenge.interactors.MapFragmentInteractor;
 import guillermorosales.com.codechallenge.interactors.MapFragmentInteractorImpl;
 import guillermorosales.com.codechallenge.model.SFReportsModel;
-import guillermorosales.com.codechallenge.ui.viewModel.MapView;
+import guillermorosales.com.codechallenge.ui.viewModel.MapViewModel;
+import guillermorosales.com.codechallenge.ui.viewModel.ReportListViewModel;
 
 /**
  * Created by Guillermo Romero on 1/13/16.
  */
-public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, FetchReportsNumberCallBack, FetchCategoriesCallBack {
+public class MapFragmentPresenter implements PresenterModel, FetchReportsCallBack,
+        FetchReportsNumberCallBack, FetchCategoriesCallBack {
 
-    private MapView mapView;
+    private MapViewModel mapView;
+    private ReportListViewModel reportsListView;
     private MapFragmentInteractor interactor;
     private Context context;
 
-    public MapFragmentPresenter(MapView mapView,Context context) {
+    public MapFragmentPresenter(MapViewModel mapView, Context context) {
         this.mapView = mapView;
         this.context = context;
         interactor = new MapFragmentInteractorImpl();
     }
+
+    public MapFragmentPresenter(ReportListViewModel reportsListView, Context context) {
+        this.reportsListView = reportsListView;
+        this.context = context;
+        interactor = new MapFragmentInteractorImpl();
+    }
+
 
     public void fetchDistricts() {
         mapView.showProgress();
@@ -54,7 +64,7 @@ public class MapFragmentPresenter implements Presenter, FetchReportsCallBack, Fe
 
     @Override
     public void onReportsListFetched(List<SFReportsModel> reports) {
-        mapView.setReportsList(reports);
+        reportsListView.setReportsList(reports);
     }
 
     @Override

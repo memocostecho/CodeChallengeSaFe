@@ -32,12 +32,12 @@ import guillermorosales.com.codechallenge.model.ReportCountModel;
 import guillermorosales.com.codechallenge.model.SFReportsModel;
 import guillermorosales.com.codechallenge.presenters.MapFragmentPresenter;
 import guillermorosales.com.codechallenge.ui.fragments.ReportsListedFragment;
-import guillermorosales.com.codechallenge.ui.viewModel.MapView;
+import guillermorosales.com.codechallenge.ui.viewModel.MapViewModel;
 import guillermorosales.com.codechallenge.util.UIUtil;
 import guillermorosales.com.codechallenge.util.UtilColorMarker;
 import guillermorosales.com.codechallenge.util.UtilString;
 
-public class MapActivity extends AppCompatActivity implements MapView, OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements MapViewModel, OnMapReadyCallback {
 
     @Nullable
     @Bind(R.id.toolbar)
@@ -46,7 +46,6 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
     protected CoordinatorLayout coordinatorLayout;
     private GoogleMap map;
     private MapFragmentPresenter presenter;
-    private int page = 0;
     private ProgressDialog mDialog;
     private LinkedHashMap incidentsCount = new LinkedHashMap();
     private boolean showDistrictsToggle = true;
@@ -157,10 +156,6 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
         paintMap();
     }
 
-    @Override
-    public void setReportsList(List<SFReportsModel> reports) {
-
-    }
 
     @Override
     public void setReportsByCategory(List<SFReportsModel> reportsByCategory) {
@@ -168,7 +163,7 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
         paintMap();
     }
 
-    public void paintMap() {
+    private void paintMap() {
         map.clear();
         LinkedHashMap incidentsCountAux = (LinkedHashMap) incidentsCount.clone();
         for (SFReportsModel report : reports) {
@@ -194,7 +189,7 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
         }
     }
 
-    public void paintReportOnMap(SFReportsModel report) {
+    private void paintReportOnMap(SFReportsModel report) {
         map.addMarker(new MarkerOptions()
                 .position(new LatLng(Float.parseFloat(report.getLocation().getLatitude()), Float
                         .parseFloat(report.getLocation().getLongitude()))).icon(BitmapDescriptorFactory
@@ -204,7 +199,7 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
     }
 
 
-    public void paintDistrictMarkerOnMap(int position, SFReportsModel report, int reportsNum) {
+    private void paintDistrictMarkerOnMap(int position, SFReportsModel report, int reportsNum) {
         map.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.defaultMarker(UtilColorMarker.getColorCode(this, position)))
                 .position(new LatLng(Float.parseFloat(report.getY()), Float.parseFloat(report.getX())))
@@ -258,12 +253,12 @@ public class MapActivity extends AppCompatActivity implements MapView, OnMapRead
 
     @Override
     public void showSuccess(String message) {
-        UIUtil.showSnackMessage(coordinatorLayout, message);
+        new UIUtil().showSnackMessage(coordinatorLayout, message);
     }
 
     @Override
     public void throwErrorMessage(String message) {
-        UIUtil.showSnackMessage(coordinatorLayout, message);
+        new UIUtil().showSnackMessage(coordinatorLayout, message);
     }
 
     @Override

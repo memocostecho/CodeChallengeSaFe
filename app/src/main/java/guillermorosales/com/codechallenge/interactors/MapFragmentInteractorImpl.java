@@ -9,7 +9,7 @@ import guillermorosales.com.codechallenge.model.CategoriesModel;
 import guillermorosales.com.codechallenge.model.ReportCountModel;
 import guillermorosales.com.codechallenge.model.SFReportsModel;
 import guillermorosales.com.codechallenge.retrofitService.SFGovService;
-import guillermorosales.com.codechallenge.ui.viewModel.MapView;
+import guillermorosales.com.codechallenge.ui.viewModel.MapViewModel;
 import guillermorosales.com.codechallenge.util.UtilDate;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -26,14 +26,14 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
     private static int LIMIT = 50;
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(SFGovService.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
+            .addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory
+                    (RxJavaCallAdapterFactory.create()).build();
     private SFGovService.SFGovServiceAPI service = retrofit.create(SFGovService.SFGovServiceAPI.class);
 
     @Override
-    public void fetchReportsList(int page, final MapView mapView, final FetchReportsCallBack callBack) {
-        service.fetchReports("select * where date <" + UtilDate.getCurrentDayString() + " AND " +
-                "date > " + UtilDate.getLastMonthDateString() + " LIMIT " + LIMIT + " OFFSET " +
-                page * LIMIT).subscribeOn(Schedulers.newThread())
+    public void fetchReportsList(int page, final MapViewModel mapView, final FetchReportsCallBack callBack) {
+        service.fetchReports("select * where date >" + UtilDate.getLastMonthDateString() + " LIMIT "
+                + LIMIT + " OFFSET " + page * LIMIT).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(
                 new Action1<List<SFReportsModel>>() {
             @Override
@@ -44,10 +44,10 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
     }
 
     @Override
-    public void fetchReports(MapView mapView, final FetchReportsCallBack callBack) {
+    public void fetchReports(MapViewModel mapView, final FetchReportsCallBack callBack) {
 
-        service.fetchReports("select * where date <" + UtilDate.getCurrentDayString() + " AND " +
-                "date > " + UtilDate.getLastMonthDateString() + " LIMIT " + LIMIT ).subscribeOn(Schedulers.newThread())
+        service.fetchReports("select * where date >"+ UtilDate.getLastMonthDateString() + " LIMIT "
+                + LIMIT ).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(
                 new Action1<List<SFReportsModel>>() {
                     @Override
@@ -58,9 +58,9 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
     }
 
     @Override
-    public void fetchReportsByCategory(String category, final MapView mapView, final FetchReportsCallBack
+    public void fetchReportsByCategory(String category, final MapViewModel mapView, final FetchReportsCallBack
             callBack) {
-        service.fetchReports("select * where date <" + UtilDate.getCurrentDayString() + " AND date > " +
+        service.fetchReports("select * where date >"+
                 UtilDate.getLastYearDateString() + " AND category = '" + category + "' LIMIT " + LIMIT)
                 .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new Action1<List<SFReportsModel>>() {
@@ -73,7 +73,7 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
 
 
     @Override
-    public void fetchReportNumbersByDistrict(final MapView mapView, final FetchReportsNumberCallBack
+    public void fetchReportNumbersByDistrict(final MapViewModel mapView, final FetchReportsNumberCallBack
             callBack) {
         service.fetchIncidentsNumber("select pddistrict,count(*) where date>" + UtilDate
                 .getLastYearDateString() + " GROUP BY pddistrict order by count").subscribeOn
@@ -89,7 +89,7 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
     }
 
     @Override
-    public void fetchCategories(MapView mapView, final FetchCategoriesCallBack callBack) {
+    public void fetchCategories(MapViewModel mapView, final FetchCategoriesCallBack callBack) {
         service.fetchIncidentCategories("select category  where date> '2015-12-01'   group by category " +
                 "LIMIT 50").subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<CategoriesModel>>() {
