@@ -3,8 +3,6 @@ package guillermorosales.com.codechallenge.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 public class SFReportsModel implements Parcelable {
 
     private String time;
@@ -18,6 +16,33 @@ public class SFReportsModel implements Parcelable {
     private String date;
     private String y;
     private String x;
+
+    protected SFReportsModel(Parcel in) {
+        time = in.readString();
+        category = in.readString();
+        pddistrict = in.readString();
+        address = in.readString();
+        descript = in.readString();
+        dayofweek = in.readString();
+        resolution = in.readString();
+        date = in.readString();
+        y = in.readString();
+        x = in.readString();
+        adress = in.readString();
+        incidntnum = in.readString();
+    }
+
+    public static final Creator<SFReportsModel> CREATOR = new Creator<SFReportsModel>() {
+        @Override
+        public SFReportsModel createFromParcel(Parcel in) {
+            return new SFReportsModel(in);
+        }
+
+        @Override
+        public SFReportsModel[] newArray(int size) {
+            return new SFReportsModel[size];
+        }
+    };
 
     public String getAdress() {
         return adress;
@@ -205,6 +230,17 @@ public class SFReportsModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(time);
+        dest.writeString(category);
+        dest.writeString(pddistrict);
+        dest.writeString(address);
+        dest.writeString(descript);
+        dest.writeString(dayofweek);
+        dest.writeString(resolution);
+        dest.writeString(date);
+        dest.writeString(y);
+        dest.writeString(x);
+        dest.writeString(adress);
+        dest.writeString(incidntnum);
     }
 }
