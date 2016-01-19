@@ -175,7 +175,8 @@ public class MapActivity extends AppCompatActivity implements MapViewModel, Acti
         this.reportsByCategory = reportsByCategory;
         hideProgress();
         showSuccess(getResources().getString(R.string
-                .message_success_get_reports_by_category, reports.size(), reports.get(0).getCategory()
+                .message_success_get_reports_by_category, reportsByCategory.size(), reports.get(0)
+                .getCategory()
                 .toLowerCase()));
         paintMap();
     }
