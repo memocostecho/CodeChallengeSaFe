@@ -9,7 +9,7 @@ import guillermorosales.com.codechallenge.model.SFReportsModel;
 /**
  * Created by Guillermo Romero on 1/13/16.
  */
-public interface MapViewModel {
+public interface MapViewModel extends ActivityFragmentViewModel {
 
     void setReports(List<SFReportsModel> reports);
 

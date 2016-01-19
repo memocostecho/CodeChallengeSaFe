@@ -20,7 +20,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.ClusterManager;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -37,12 +36,12 @@ import guillermorosales.com.codechallenge.model.SFReportsModel;
 import guillermorosales.com.codechallenge.presenters.MapFragmentPresenter;
 import guillermorosales.com.codechallenge.ui.fragments.ReportsListedFragment;
 import guillermorosales.com.codechallenge.ui.viewModel.MapViewModel;
-import guillermorosales.com.codechallenge.ui.viewModel.ViewModel;
+import guillermorosales.com.codechallenge.ui.viewModel.ActivityFragmentViewModel;
 import guillermorosales.com.codechallenge.util.UIUtil;
 import guillermorosales.com.codechallenge.util.UtilColorMarker;
 import guillermorosales.com.codechallenge.util.UtilString;
 
-public class MapActivity extends AppCompatActivity implements MapViewModel,ViewModel,
+public class MapActivity extends AppCompatActivity implements MapViewModel,ActivityFragmentViewModel,
         OnMapReadyCallback {
 
     @Nullable
@@ -74,7 +73,7 @@ public class MapActivity extends AppCompatActivity implements MapViewModel,ViewM
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         reportsFragment = new ReportsListedFragment();
-        presenter = new MapFragmentPresenter(this,getApplicationContext());
+        presenter = new MapFragmentPresenter(this);
         presenter.start();
     }
 
@@ -98,6 +97,7 @@ public class MapActivity extends AppCompatActivity implements MapViewModel,ViewM
         if (item.getTitle().equals(getResources().getString(R.string.all_filter_text))) {
             paintMap();
         } else {
+            showProgress();
             presenter.fetchReportsByCategory(item.getTitle().toString());
         }
         return true;
@@ -160,6 +160,9 @@ public class MapActivity extends AppCompatActivity implements MapViewModel,ViewM
     @Override
     public void setReports(List<SFReportsModel> reports) {
         this.reports = reports;
+        hideProgress();
+        showSuccess(getResources().getString(R.string.message_success_get_reports,
+                reports.size()));
         paintMap();
     }
 
@@ -167,6 +170,10 @@ public class MapActivity extends AppCompatActivity implements MapViewModel,ViewM
     @Override
     public void setReportsByCategory(List<SFReportsModel> reportsByCategory) {
         this.reportsByCategory = reportsByCategory;
+        hideProgress();
+        showSuccess(getResources().getString(R.string
+                .message_success_get_reports_by_category, reports.size(), reports.get(0).getCategory()
+                .toLowerCase()));
         paintMap();
     }
 
@@ -200,10 +207,10 @@ public class MapActivity extends AppCompatActivity implements MapViewModel,ViewM
     }
 
     private void paintReportOnMap(SFReportsModel report) {
-        mClusterManager.addItem(new ReportClusterItem(Float.parseFloat(report.getLocation().getLatitude()),
-                Float.parseFloat(report.getLocation().getLongitude()),report.getCategory(),report.getDate()
-                .substring(0, report
-                        .getDate()
+        mClusterManager.addItem(new ReportClusterItem(Float.parseFloat(report.getLocation()
+                        .getLatitude()),
+                Float.parseFloat(report.getLocation().getLongitude()),report.getCategory(),
+                report.getDate().substring(0, report.getDate()
                         .indexOf("T")) + " at " + report.getTime(),BitmapDescriptorFactory
               .fromResource(R.drawable.inc)));
     }
@@ -250,7 +257,6 @@ public class MapActivity extends AppCompatActivity implements MapViewModel,ViewM
         map.animateCamera(zoom);
     }
 
-
     @Override
     public void showProgress() {
         mDialog.show();
@@ -278,6 +284,7 @@ public class MapActivity extends AppCompatActivity implements MapViewModel,ViewM
         mClusterManager.setRenderer(new ReportIconRenderer(this,map,mClusterManager));
         map.setOnCameraChangeListener(mClusterManager);
         map.setOnMarkerClickListener(mClusterManager);
+        showProgress();
         presenter.fetchDistricts();
     }
 

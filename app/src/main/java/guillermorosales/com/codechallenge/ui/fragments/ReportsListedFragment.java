@@ -44,12 +44,10 @@ public class ReportsListedFragment extends Fragment implements ReportListViewMod
     private int page = 1;
     private List<SFReportsModel> reports;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new MapFragmentPresenter(this,getActivity());
-
     }
 
     @Nullable
@@ -72,7 +70,6 @@ public class ReportsListedFragment extends Fragment implements ReportListViewMod
         adapter = new ReportsAdapter();
         adapter.setMapView((MapActivity) getActivity());
         reportsRecycler.setAdapter(adapter);
-
         reports = new ArrayList<>((ArrayList)this.getArguments().getSerializable
                 ("reports"));
         adapter.setReports(reports);
@@ -96,12 +93,9 @@ public class ReportsListedFragment extends Fragment implements ReportListViewMod
 
                     });
         }
-
         adapter.notifyDataSetChanged();
         return view;
-
     }
-
 
     @Override
     public void setReportsList(List<SFReportsModel> reportsList) {
@@ -114,8 +108,6 @@ public class ReportsListedFragment extends Fragment implements ReportListViewMod
             adapter.notifyDataSetChanged();
         }
     }
-
-
 
     @Override
     public void onRefresh() {

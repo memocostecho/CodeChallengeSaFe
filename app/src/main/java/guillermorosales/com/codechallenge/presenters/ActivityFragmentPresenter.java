@@ -6,7 +6,7 @@ package guillermorosales.com.codechallenge.presenters;
  * <p/>
  * Created by Guillermo Romero on 1/13/16.
  */
-public interface PresenterModel {
+public interface ActivityFragmentPresenter {
 
     void start();
 

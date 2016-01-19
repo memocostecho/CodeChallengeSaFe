@@ -3,7 +3,7 @@ package guillermorosales.com.codechallenge.ui.viewModel;
 /**
  * Created by Guillermo Romero on 1/13/16.
  */
-public interface ViewModel {
+public interface ActivityFragmentViewModel {
 
     void showProgress();
 

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import java.util.List;
 
-import guillermorosales.com.codechallenge.R;
 import guillermorosales.com.codechallenge.callbacks.FetchCategoriesCallBack;
 import guillermorosales.com.codechallenge.callbacks.FetchReportsCallBack;
 import guillermorosales.com.codechallenge.callbacks.FetchReportsNumberCallBack;
@@ -17,29 +16,24 @@ import guillermorosales.com.codechallenge.ui.viewModel.ReportListViewModel;
 /**
  * Created by Guillermo Romero on 1/13/16.
  */
-public class MapFragmentPresenter implements PresenterModel, FetchReportsCallBack,
+public class MapFragmentPresenter implements ActivityFragmentPresenter, FetchReportsCallBack,
         FetchReportsNumberCallBack, FetchCategoriesCallBack {
 
     private MapViewModel mapView;
     private ReportListViewModel reportsListView;
     private MapFragmentInteractor interactor;
-    private Context context;
 
-    public MapFragmentPresenter(MapViewModel mapView, Context context) {
+    public MapFragmentPresenter(MapViewModel mapView) {
         this.mapView = mapView;
-        this.context = context;
         interactor = new MapFragmentInteractorImpl();
     }
 
     public MapFragmentPresenter(ReportListViewModel reportsListView, Context context) {
         this.reportsListView = reportsListView;
-        this.context = context;
         interactor = new MapFragmentInteractorImpl();
     }
 
-
     public void fetchDistricts() {
-        mapView.showProgress();
         interactor.fetchReportNumbersByDistrict(mapView, this);
     }
 
@@ -52,7 +46,6 @@ public class MapFragmentPresenter implements PresenterModel, FetchReportsCallBac
     }
 
     public void fetchReportsByCategory(String category) {
-        mapView.showProgress();
         interactor.fetchReportsByCategory(category, mapView, this);
     }
 
@@ -60,7 +53,6 @@ public class MapFragmentPresenter implements PresenterModel, FetchReportsCallBac
     public void start() {
         interactor.fetchCategories(mapView, this);
     }
-
 
     @Override
     public void onReportsListFetched(List<SFReportsModel> reports) {
@@ -70,18 +62,11 @@ public class MapFragmentPresenter implements PresenterModel, FetchReportsCallBac
     @Override
     public void onReportsFetched(List<SFReportsModel> reports) {
         mapView.setReports(reports);
-        mapView.hideProgress();
-        mapView.showSuccess(context.getResources().getString(R.string.message_success_get_reports,
-                reports.size()));
     }
 
     @Override
     public void onReportsFetchedByCategory(List<SFReportsModel> reports) {
         mapView.setReportsByCategory(reports);
-        mapView.hideProgress();
-        mapView.showSuccess(context.getResources().getString(R.string
-                .message_success_get_reports_by_category, reports.size(), reports.get(0).getCategory()
-                .toLowerCase()));
     }
 
     @Override

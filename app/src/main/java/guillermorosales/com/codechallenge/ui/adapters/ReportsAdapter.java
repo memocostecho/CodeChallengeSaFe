@@ -80,14 +80,11 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
             });
         }else{
-
             if(!showLoading){
                 final LoadingViewHolder holder = (LoadingViewHolder) viewHolder;
                 holder.progressBar.setVisibility(View.INVISIBLE);
             }
-
         }
-
     }
 
     @Override
@@ -98,13 +95,9 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemViewType(int position) {
         if(position==reports.size()){
-
             return REPORT_LOADING;
-
         }else{
-
             return REPORT_ITEM;
-
         }
     }
 
