@@ -1,7 +1,5 @@
 package guillermorosales.com.codechallenge.presenters;
 
-import android.content.Context;
-
 import java.util.List;
 
 import guillermorosales.com.codechallenge.callbacks.FetchCategoriesCallBack;
@@ -28,7 +26,7 @@ public class MapFragmentPresenter implements ActivityFragmentPresenter, FetchRep
         interactor = new MapFragmentInteractorImpl();
     }
 
-    public MapFragmentPresenter(ReportListViewModel reportsListView, Context context) {
+    public MapFragmentPresenter(ReportListViewModel reportsListView) {
         this.reportsListView = reportsListView;
         interactor = new MapFragmentInteractorImpl();
     }
@@ -42,7 +40,7 @@ public class MapFragmentPresenter implements ActivityFragmentPresenter, FetchRep
     }
 
     public void fetchReports() {
-        interactor.fetchReports( mapView, this);
+        interactor.fetchReports(mapView, this);
     }
 
     public void fetchReportsByCategory(String category) {

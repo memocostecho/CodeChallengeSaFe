@@ -13,7 +13,7 @@ import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 public class ReportIconRenderer extends DefaultClusterRenderer<ReportClusterItem> {
 
     public ReportIconRenderer(Context context, GoogleMap map,
-                           ClusterManager<ReportClusterItem> clusterManager) {
+                              ClusterManager<ReportClusterItem> clusterManager) {
         super(context, map, clusterManager);
     }
 

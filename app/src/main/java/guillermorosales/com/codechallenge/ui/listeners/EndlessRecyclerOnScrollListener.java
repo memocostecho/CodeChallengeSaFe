@@ -8,10 +8,10 @@ import android.support.v7.widget.RecyclerView;
  */
 public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
 
+    int firstVisibleItem, visibleItemCount, totalItemCount;
     private int previousTotal = 0;
     private boolean loading = true;
     private int visibleThreshold = 5;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
     private int current_page = 1;
     private LinearLayoutManager mLinearLayoutManager;
 

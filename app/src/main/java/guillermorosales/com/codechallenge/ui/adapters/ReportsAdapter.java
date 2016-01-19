@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import guillermorosales.com.codechallenge.R;
@@ -21,16 +23,15 @@ import guillermorosales.com.codechallenge.util.UtilString;
  */
 public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<SFReportsModel> reports= new ArrayList();
     private final int REPORT_ITEM = 1;
     private final int REPORT_LOADING = 2;
+    private List<SFReportsModel> reports = new ArrayList();
     private MapViewModel mapView;
+    private boolean showLoading = true;
 
     public void setShowLoading(boolean showLoading) {
         this.showLoading = showLoading;
     }
-
-    private boolean showLoading = true;
 
     public void setReports(List<SFReportsModel> reports) {
         this.reports = reports;
@@ -43,14 +44,14 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View itemView;
-        if(viewType==REPORT_ITEM){
+        if (viewType == REPORT_ITEM) {
 
             itemView = LayoutInflater.
                     from(viewGroup.getContext()).
                     inflate(R.layout.reports_list_item, viewGroup, false);
             return new ReportViewHolder(itemView);
 
-        }else{
+        } else {
 
             itemView = LayoutInflater.
                     from(viewGroup.getContext()).
@@ -62,12 +63,12 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
 
-        if(position<=reports.size()-1){
+        if (position <= reports.size() - 1) {
 
             final ReportViewHolder holder = (ReportViewHolder) viewHolder;
             final SFReportsModel report = reports.get(position);
             holder.reportTitle.setText(UtilString.capitalizeFirstLetter(report.getCategory()
-                    .toLowerCase())+" - " + UtilString.capitalizeFirstLetter(report.getPddistrict()
+                    .toLowerCase()) + " - " + UtilString.capitalizeFirstLetter(report.getPddistrict()
                     .toLowerCase()));
             holder.reportAddress.setText(report.getAddress());
             holder.reportTime.setText(report.getTime());
@@ -79,8 +80,8 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     mapView.showReportOnMap(reports.get(position));
                 }
             });
-        }else{
-            if(!showLoading){
+        } else {
+            if (!showLoading) {
                 final LoadingViewHolder holder = (LoadingViewHolder) viewHolder;
                 holder.progressBar.setVisibility(View.INVISIBLE);
             }
@@ -89,14 +90,14 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemCount() {
-        return reports.size()+1;
+        return reports.size() + 1;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(position==reports.size()){
+        if (position == reports.size()) {
             return REPORT_LOADING;
-        }else{
+        } else {
             return REPORT_ITEM;
         }
     }
@@ -122,6 +123,7 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public static class LoadingViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.bottom_progress)
         ProgressBar progressBar;
+
         public LoadingViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);

@@ -14,7 +14,7 @@ public class ReportClusterItem implements ClusterItem {
     private final String title;
     private final BitmapDescriptor icon;
 
-    public ReportClusterItem(double lat, double lng,String title,String snippet,BitmapDescriptor
+    public ReportClusterItem(double lat, double lng, String title, String snippet, BitmapDescriptor
             icon) {
         mPosition = new LatLng(lat, lng);
         this.title = title;

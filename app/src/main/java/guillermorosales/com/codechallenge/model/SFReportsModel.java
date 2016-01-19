@@ -5,6 +5,17 @@ import android.os.Parcelable;
 
 public class SFReportsModel implements Parcelable {
 
+    public static final Creator<SFReportsModel> CREATOR = new Creator<SFReportsModel>() {
+        @Override
+        public SFReportsModel createFromParcel(Parcel in) {
+            return new SFReportsModel(in);
+        }
+
+        @Override
+        public SFReportsModel[] newArray(int size) {
+            return new SFReportsModel[size];
+        }
+    };
     private String time;
     private String category;
     private String pddistrict;
@@ -16,6 +27,7 @@ public class SFReportsModel implements Parcelable {
     private String date;
     private String y;
     private String x;
+    private String incidntnum;
 
     protected SFReportsModel(Parcel in) {
         time = in.readString();
@@ -28,32 +40,8 @@ public class SFReportsModel implements Parcelable {
         date = in.readString();
         y = in.readString();
         x = in.readString();
-        adress = in.readString();
         incidntnum = in.readString();
     }
-
-    public static final Creator<SFReportsModel> CREATOR = new Creator<SFReportsModel>() {
-        @Override
-        public SFReportsModel createFromParcel(Parcel in) {
-            return new SFReportsModel(in);
-        }
-
-        @Override
-        public SFReportsModel[] newArray(int size) {
-            return new SFReportsModel[size];
-        }
-    };
-
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) {
-        this.adress = adress;
-    }
-
-    private String adress;
-    private String incidntnum;
 
     /**
      * @return The time
@@ -240,7 +228,6 @@ public class SFReportsModel implements Parcelable {
         dest.writeString(date);
         dest.writeString(y);
         dest.writeString(x);
-        dest.writeString(adress);
         dest.writeString(incidntnum);
     }
 }

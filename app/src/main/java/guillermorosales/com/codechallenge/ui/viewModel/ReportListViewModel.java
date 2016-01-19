@@ -7,7 +7,7 @@ import guillermorosales.com.codechallenge.model.SFReportsModel;
 /**
  * Created by guillermo.rosales on 18/01/16.
  */
-public interface ReportListViewModel  {
+public interface ReportListViewModel {
 
     void setReportsList(List<SFReportsModel> reports);
 

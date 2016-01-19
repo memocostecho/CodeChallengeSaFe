@@ -38,18 +38,18 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
                 + LIMIT + " OFFSET " + page * LIMIT).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(
                 new Action1<List<SFReportsModel>>() {
-            @Override
-            public void call(List<SFReportsModel> sfDistrictsModels) {
-                callBack.onReportsListFetched(sfDistrictsModels);
-            }
-        });
+                    @Override
+                    public void call(List<SFReportsModel> sfDistrictsModels) {
+                        callBack.onReportsListFetched(sfDistrictsModels);
+                    }
+                });
     }
 
     @Override
     public void fetchReports(MapViewModel mapView, final FetchReportsCallBack callBack) {
 
-        service.fetchReports("select * where date >"+ UtilDate.getLastMonthDateString() + " LIMIT "
-                + LIMIT_MAP ).subscribeOn(Schedulers.newThread())
+        service.fetchReports("select * where date >" + UtilDate.getLastMonthDateString() + " LIMIT "
+                + LIMIT_MAP).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(
                 new Action1<List<SFReportsModel>>() {
                     @Override
@@ -62,15 +62,15 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
     @Override
     public void fetchReportsByCategory(String category, final MapViewModel mapView, final FetchReportsCallBack
             callBack) {
-        service.fetchReports("select * where date >"+
+        service.fetchReports("select * where date >" +
                 UtilDate.getLastYearDateString() + " AND category = '" + category + "' LIMIT " + LIMIT)
                 .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new Action1<List<SFReportsModel>>() {
-            @Override
-            public void call(List<SFReportsModel> sfDistrictsModels) {
-                callBack.onReportsFetchedByCategory(sfDistrictsModels);
-            }
-        });
+                    @Override
+                    public void call(List<SFReportsModel> sfDistrictsModels) {
+                        callBack.onReportsFetchedByCategory(sfDistrictsModels);
+                    }
+                });
     }
 
 
@@ -81,13 +81,13 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
                 .getLastYearDateString() + " GROUP BY pddistrict order by count").subscribeOn
                 (Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(
                 new Action1<List<ReportCountModel>>() {
-            @Override
-            public void call(List<ReportCountModel> sfDistrictsModels) {
-                callBack.onReportsNumberFetched(sfDistrictsModels);
-            }
+                    @Override
+                    public void call(List<ReportCountModel> sfDistrictsModels) {
+                        callBack.onReportsNumberFetched(sfDistrictsModels);
+                    }
 
 
-        });
+                });
     }
 
     @Override

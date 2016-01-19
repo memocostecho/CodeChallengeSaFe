@@ -65,7 +65,7 @@ public class UtilColorMarker {
         }
     }
 
-    private static float getHueColor(int color){
+    private static float getHueColor(int color) {
         return UtilColorMarker.rgbToHue(Color.red(color), Color.green(color), Color.blue(color));
     }
 

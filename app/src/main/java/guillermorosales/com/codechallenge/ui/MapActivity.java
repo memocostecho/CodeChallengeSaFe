@@ -5,12 +5,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,10 +22,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.ClusterManager;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -35,13 +39,12 @@ import guillermorosales.com.codechallenge.model.ReportIconRenderer;
 import guillermorosales.com.codechallenge.model.SFReportsModel;
 import guillermorosales.com.codechallenge.presenters.MapFragmentPresenter;
 import guillermorosales.com.codechallenge.ui.fragments.ReportsListedFragment;
-import guillermorosales.com.codechallenge.ui.viewModel.MapViewModel;
 import guillermorosales.com.codechallenge.ui.viewModel.ActivityFragmentViewModel;
-import guillermorosales.com.codechallenge.util.UIUtil;
+import guillermorosales.com.codechallenge.ui.viewModel.MapViewModel;
 import guillermorosales.com.codechallenge.util.UtilColorMarker;
 import guillermorosales.com.codechallenge.util.UtilString;
 
-public class MapActivity extends AppCompatActivity implements MapViewModel,ActivityFragmentViewModel,
+public class MapActivity extends AppCompatActivity implements MapViewModel, ActivityFragmentViewModel,
         OnMapReadyCallback {
 
     @Nullable
@@ -85,9 +88,9 @@ public class MapActivity extends AppCompatActivity implements MapViewModel,Activ
 
     @Override
     public void onBackPressed() {
-        if(showListFragmentToggle){
+        if (showListFragmentToggle) {
             toogleListFragment(null);
-        }else{
+        } else {
             super.onBackPressed();
         }
     }
@@ -132,14 +135,14 @@ public class MapActivity extends AppCompatActivity implements MapViewModel,Activ
     @OnClick(R.id.view_list)
     public void toogleListFragment(ImageView view) {
 
-        if(!showListFragmentToggle){
+        if (!showListFragmentToggle) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("reports", (Serializable) reports);
             reportsFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fragment_in,
                     R.anim.fragment_out)
                     .add(R.id.reports_list_container, reportsFragment).commit();
-        }else{
+        } else {
 
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fragment_in,
                     R.anim.fragment_out)
@@ -190,7 +193,7 @@ public class MapActivity extends AppCompatActivity implements MapViewModel,Activ
                             ((String) incidentsCountAux.get(report.getPddistrict())));
                 }
 
-                incidentsCountAux.put(report.getPddistrict(),null);
+                incidentsCountAux.put(report.getPddistrict(), null);
             }
             if (showReportsToggle && reportsByCategory == null) {
                 paintReportOnMap(report);
@@ -202,17 +205,17 @@ public class MapActivity extends AppCompatActivity implements MapViewModel,Activ
             }
             reportsByCategory = null;
         }
-        CameraUpdate zoom=CameraUpdateFactory.zoomTo(new Float(map.getCameraPosition().zoom-0.01));
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(new Float(map.getCameraPosition().zoom - 0.01));
         map.animateCamera(zoom);
     }
 
     private void paintReportOnMap(SFReportsModel report) {
         mClusterManager.addItem(new ReportClusterItem(Float.parseFloat(report.getLocation()
-                        .getLatitude()),
-                Float.parseFloat(report.getLocation().getLongitude()),report.getCategory(),
+                .getLatitude()),
+                Float.parseFloat(report.getLocation().getLongitude()), report.getCategory(),
                 report.getDate().substring(0, report.getDate()
-                        .indexOf("T")) + " at " + report.getTime(),BitmapDescriptorFactory
-              .fromResource(R.drawable.inc)));
+                        .indexOf("T")) + " at " + report.getTime(), BitmapDescriptorFactory
+                .fromResource(R.drawable.inc)));
     }
 
 
@@ -243,16 +246,16 @@ public class MapActivity extends AppCompatActivity implements MapViewModel,Activ
     @Override
     public void showReportOnMap(SFReportsModel report) {
 
-        if(!reports.contains(report)){
+        if (!reports.contains(report)) {
             paintReportOnMap(report);
         }
 
-        CameraUpdate center=
+        CameraUpdate center =
                 CameraUpdateFactory.newLatLng(new LatLng(Float.parseFloat(
                         report.getLocation().getLatitude()),
                         Float.parseFloat(
                                 report.getLocation().getLongitude())));
-        CameraUpdate zoom=CameraUpdateFactory.zoomTo(20);
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
         map.moveCamera(center);
         map.animateCamera(zoom);
     }
@@ -269,23 +272,29 @@ public class MapActivity extends AppCompatActivity implements MapViewModel,Activ
 
     @Override
     public void showSuccess(String message) {
-        new UIUtil().showSnackMessage(coordinatorLayout, message);
+        showSnackMessage(coordinatorLayout, message);
     }
 
     @Override
     public void throwErrorMessage(String message) {
-        new UIUtil().showSnackMessage(coordinatorLayout, message);
+        showSnackMessage(coordinatorLayout, message);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         mClusterManager = new ClusterManager<>(this, map);
-        mClusterManager.setRenderer(new ReportIconRenderer(this,map,mClusterManager));
+        mClusterManager.setRenderer(new ReportIconRenderer(this, map, mClusterManager));
         map.setOnCameraChangeListener(mClusterManager);
         map.setOnMarkerClickListener(mClusterManager);
         showProgress();
         presenter.fetchDistricts();
+    }
+
+    public void showSnackMessage(CoordinatorLayout coordinatorLayout, String message) {
+        Snackbar snackbar = Snackbar
+                .make(coordinatorLayout, message, Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
 }

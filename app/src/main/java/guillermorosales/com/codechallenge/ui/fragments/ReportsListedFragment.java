@@ -10,8 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import guillermorosales.com.codechallenge.R;
@@ -28,7 +30,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Guillermo Romero on 1/16/16.
  */
-public class ReportsListedFragment extends Fragment implements ReportListViewModel,SwipeRefreshLayout
+public class ReportsListedFragment extends Fragment implements ReportListViewModel, SwipeRefreshLayout
         .OnRefreshListener {
 
     @Bind(R.id.reports_recycler)
@@ -44,7 +46,7 @@ public class ReportsListedFragment extends Fragment implements ReportListViewMod
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new MapFragmentPresenter(this,getActivity());
+        presenter = new MapFragmentPresenter(this);
     }
 
     @Nullable
@@ -60,18 +62,18 @@ public class ReportsListedFragment extends Fragment implements ReportListViewMod
                 (linearManager) {
             @Override
             public void onLoadMore(int current_page) {
-                    presenter.fetchReportsList(page);
-                    page++;
+                presenter.fetchReportsList(page);
+                page++;
             }
         });
         adapter = new ReportsAdapter();
         adapter.setMapView((MapActivity) getActivity());
         reportsRecycler.setAdapter(adapter);
-        reports = new ArrayList<>((ArrayList)this.getArguments().getSerializable
+        reports = new ArrayList<>((ArrayList) this.getArguments().getSerializable
                 ("reports"));
         adapter.setReports(reports);
 
-       for (final SFReportsModel report : reports){
+        for (final SFReportsModel report : reports) {
             ReverseGeocodeObservable.createObservable(getActivity().getApplicationContext(), Float
                     .parseFloat
                             (reports.get(reports.indexOf(report))
@@ -96,10 +98,10 @@ public class ReportsListedFragment extends Fragment implements ReportListViewMod
 
     @Override
     public void setReportsList(List<SFReportsModel> reportsList) {
-        if(reportsList.isEmpty()){
+        if (reportsList.isEmpty()) {
             adapter.setShowLoading(false);
             adapter.notifyDataSetChanged();
-        }else{
+        } else {
             reports.addAll(reportsList);
             adapter.setReports(reports);
             adapter.notifyDataSetChanged();
