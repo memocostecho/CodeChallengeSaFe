@@ -193,6 +193,8 @@ public class MapActivity extends AppCompatActivity implements MapViewModel, OnMa
             }
             reportsByCategory = null;
         }
+        CameraUpdate zoom=CameraUpdateFactory.zoomTo(new Float(map.getCameraPosition().zoom-0.01));
+        map.animateCamera(zoom);
     }
 
     private void paintReportOnMap(SFReportsModel report) {

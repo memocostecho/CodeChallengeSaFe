@@ -8,7 +8,7 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
 /**
- * Created by yasminegutierrez on 1/18/16.
+ * Created by Guillermo Romero on 1/18/16.
  */
 public class ReportIconRenderer extends DefaultClusterRenderer<ReportClusterItem> {
 
