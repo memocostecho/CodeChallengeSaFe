@@ -19,6 +19,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.ClusterManager;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -28,7 +30,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import guillermorosales.com.codechallenge.R;
 import guillermorosales.com.codechallenge.model.CategoriesModel;
+import guillermorosales.com.codechallenge.model.ReportClusterItem;
 import guillermorosales.com.codechallenge.model.ReportCountModel;
+import guillermorosales.com.codechallenge.model.ReportIconRenderer;
 import guillermorosales.com.codechallenge.model.SFReportsModel;
 import guillermorosales.com.codechallenge.presenters.MapFragmentPresenter;
 import guillermorosales.com.codechallenge.ui.fragments.ReportsListedFragment;
@@ -55,6 +59,7 @@ public class MapActivity extends AppCompatActivity implements MapViewModel, OnMa
     private List<SFReportsModel> reportsByCategory;
     private Menu menu;
     private ReportsListedFragment reportsFragment;
+    private ClusterManager<ReportClusterItem> mClusterManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +170,7 @@ public class MapActivity extends AppCompatActivity implements MapViewModel, OnMa
 
     private void paintMap() {
         map.clear();
+        mClusterManager.clearItems();
         LinkedHashMap incidentsCountAux = (LinkedHashMap) incidentsCount.clone();
         for (SFReportsModel report : reports) {
             if (incidentsCountAux.get(report.getPddistrict()) != null) {
@@ -190,12 +196,12 @@ public class MapActivity extends AppCompatActivity implements MapViewModel, OnMa
     }
 
     private void paintReportOnMap(SFReportsModel report) {
-        map.addMarker(new MarkerOptions()
-                .position(new LatLng(Float.parseFloat(report.getLocation().getLatitude()), Float
-                        .parseFloat(report.getLocation().getLongitude()))).icon(BitmapDescriptorFactory
-                        .fromResource(R.drawable.inc))
-                .title(report.getCategory()).snippet(report.getDate().substring(0, report.getDate()
-                        .indexOf("T")) + " at " + report.getTime()));
+        mClusterManager.addItem(new ReportClusterItem(Float.parseFloat(report.getLocation().getLatitude()),
+                Float.parseFloat(report.getLocation().getLongitude()),report.getCategory(),report.getDate()
+                .substring(0, report
+                        .getDate()
+                        .indexOf("T")) + " at " + report.getTime(),BitmapDescriptorFactory
+              .fromResource(R.drawable.inc)));
     }
 
 
@@ -264,6 +270,10 @@ public class MapActivity extends AppCompatActivity implements MapViewModel, OnMa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        mClusterManager = new ClusterManager<>(this, map);
+        mClusterManager.setRenderer(new ReportIconRenderer(this,map,mClusterManager));
+        map.setOnCameraChangeListener(mClusterManager);
+        map.setOnMarkerClickListener(mClusterManager);
         presenter.fetchDistricts();
     }
 

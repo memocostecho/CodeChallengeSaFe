@@ -23,6 +23,7 @@ import rx.schedulers.Schedulers;
  */
 public class MapFragmentInteractorImpl implements MapFragmentInteractor {
 
+    private static int LIMIT_MAP = 150;
     private static int LIMIT = 50;
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(SFGovService.BASE_URL)
@@ -47,7 +48,7 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
     public void fetchReports(MapViewModel mapView, final FetchReportsCallBack callBack) {
 
         service.fetchReports("select * where date >"+ UtilDate.getLastMonthDateString() + " LIMIT "
-                + LIMIT ).subscribeOn(Schedulers.newThread())
+                + LIMIT_MAP ).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(
                 new Action1<List<SFReportsModel>>() {
                     @Override
