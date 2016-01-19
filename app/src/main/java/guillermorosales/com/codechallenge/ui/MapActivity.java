@@ -61,6 +61,7 @@ public class MapActivity extends AppCompatActivity implements MapViewModel, Acti
     private Menu menu;
     private ReportsListedFragment reportsFragment;
     private ClusterManager<ReportClusterItem> mClusterManager;
+    public static String REPORTS_DATA= "reports";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +135,7 @@ public class MapActivity extends AppCompatActivity implements MapViewModel, Acti
 
         if (!showListFragmentToggle) {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("reports", (Serializable) reports);
+            bundle.putSerializable(REPORTS_DATA, (Serializable) reports);
             reportsFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fragment_in,
                     R.anim.fragment_out)

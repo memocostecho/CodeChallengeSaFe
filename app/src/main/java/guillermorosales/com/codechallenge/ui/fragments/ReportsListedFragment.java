@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import guillermorosales.com.codechallenge.R;
@@ -70,7 +72,7 @@ public class ReportsListedFragment extends Fragment implements ReportListViewMod
                 .getApplicationContext());
         reportsRecycler.setAdapter(adapter);
         reports = new ArrayList<>((ArrayList) this.getArguments().getSerializable
-                ("reports"));
+                (MapActivity.REPORTS_DATA));
         adapter.setReports(reports);
         adapter.notifyDataSetChanged();
 
