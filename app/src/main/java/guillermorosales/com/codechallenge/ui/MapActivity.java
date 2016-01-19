@@ -37,11 +37,13 @@ import guillermorosales.com.codechallenge.model.SFReportsModel;
 import guillermorosales.com.codechallenge.presenters.MapFragmentPresenter;
 import guillermorosales.com.codechallenge.ui.fragments.ReportsListedFragment;
 import guillermorosales.com.codechallenge.ui.viewModel.MapViewModel;
+import guillermorosales.com.codechallenge.ui.viewModel.ViewModel;
 import guillermorosales.com.codechallenge.util.UIUtil;
 import guillermorosales.com.codechallenge.util.UtilColorMarker;
 import guillermorosales.com.codechallenge.util.UtilString;
 
-public class MapActivity extends AppCompatActivity implements MapViewModel, OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements MapViewModel,ViewModel,
+        OnMapReadyCallback {
 
     @Nullable
     @Bind(R.id.toolbar)
