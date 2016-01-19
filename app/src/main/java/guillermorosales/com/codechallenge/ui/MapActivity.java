@@ -292,7 +292,7 @@ public class MapActivity extends AppCompatActivity implements MapViewModel, Acti
         presenter.fetchDistricts();
     }
 
-    public void showSnackMessage(CoordinatorLayout coordinatorLayout, String message) {
+    private void showSnackMessage(CoordinatorLayout coordinatorLayout, String message) {
         Snackbar snackbar = Snackbar
                 .make(coordinatorLayout, message, Snackbar.LENGTH_LONG);
         snackbar.show();
