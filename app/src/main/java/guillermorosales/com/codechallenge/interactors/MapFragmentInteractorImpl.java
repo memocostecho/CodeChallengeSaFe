@@ -32,7 +32,8 @@ public class MapFragmentInteractorImpl implements MapFragmentInteractor {
     private SFGovService.SFGovServiceAPI service = retrofit.create(SFGovService.SFGovServiceAPI.class);
 
     @Override
-    public void fetchReportsList(int page, final MapViewModel mapView, final FetchReportsCallBack callBack) {
+    public void fetchReportsList(int page, final MapViewModel mapView, final FetchReportsCallBack
+            callBack) {
         service.fetchReports("select * where date >" + UtilDate.getLastMonthDateString() + " LIMIT "
                 + LIMIT + " OFFSET " + page * LIMIT).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(
