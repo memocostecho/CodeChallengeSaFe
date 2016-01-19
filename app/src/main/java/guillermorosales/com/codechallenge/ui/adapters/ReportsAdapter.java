@@ -1,5 +1,7 @@
 package guillermorosales.com.codechallenge.ui.adapters;
 
+import android.content.Context;
+import android.location.Address;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +18,10 @@ import butterknife.ButterKnife;
 import guillermorosales.com.codechallenge.R;
 import guillermorosales.com.codechallenge.model.SFReportsModel;
 import guillermorosales.com.codechallenge.ui.viewModel.MapViewModel;
+import guillermorosales.com.codechallenge.util.ReverseGeocodeObservable;
 import guillermorosales.com.codechallenge.util.UtilString;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Guillermo Romero on 1/15/16.
@@ -28,6 +33,12 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private List<SFReportsModel> reports = new ArrayList();
     private MapViewModel mapView;
     private boolean showLoading = true;
+    private Context context;
+
+    public ReportsAdapter(MapViewModel mapView, Context context) {
+        this.mapView = mapView;
+        this.context = context;
+    }
 
     public void setShowLoading(boolean showLoading) {
         this.showLoading = showLoading;
@@ -37,9 +48,6 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.reports = reports;
     }
 
-    public void setMapView(MapViewModel mapView) {
-        this.mapView = mapView;
-    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -74,16 +82,36 @@ public class ReportsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.reportTime.setText(report.getTime());
             holder.reportDate.setText(report.getDate().substring(0, report.getDate()
                     .indexOf("T")));
+
+            ReverseGeocodeObservable.createObservable(context, Float
+                    .parseFloat
+                            (reports.get(reports.indexOf(report))
+                                    .getLocation().getLatitude()), Float.parseFloat(reports.get(
+                    reports.indexOf(report)).getLocation().getLongitude())
+                    , 1).subscribeOn
+                    (Schedulers.newThread()).subscribe(
+                    new Action1<List<Address>>() {
+                        @Override
+                        public void call(List<Address> addresses) {
+                            reports.get(reports.indexOf(report)).setAddress(addresses.get(0)
+                                    .toString());
+                            notifyDataSetChanged();
+                        }
+
+
+                    });
             holder.itemContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mapView.showReportOnMap(reports.get(position));
                 }
             });
+
+
         } else {
             if (!showLoading) {
                 final LoadingViewHolder holder = (LoadingViewHolder) viewHolder;
-                holder.progressBar.setVisibility(View.INVISIBLE);
+                holder.progressBar.setVisibility(View.GONE);
             }
         }
     }

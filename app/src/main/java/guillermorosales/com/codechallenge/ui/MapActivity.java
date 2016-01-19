@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,12 +21,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.ClusterManager;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -49,9 +46,9 @@ public class MapActivity extends AppCompatActivity implements MapViewModel, Acti
 
     @Nullable
     @Bind(R.id.toolbar)
-    protected Toolbar toolbar;
+    Toolbar toolbar;
     @Bind(R.id.coordinatorLayout)
-    protected CoordinatorLayout coordinatorLayout;
+    CoordinatorLayout coordinatorLayout;
     private GoogleMap map;
     private MapFragmentPresenter presenter;
     private ProgressDialog mDialog;
